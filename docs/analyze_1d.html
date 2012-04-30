@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+    <title>analyze_1d</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>analyze_1d</h1>
+<h3>Synopsis</h3>
+<p>
+Reads a <a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a> 
+file containing a field configuration in static 1+1D spacetime, analyzes it and creates a new directory containing multiple 
+output files with derived quantities. The input file is expected to use Cartesian field coordinates for the scalars.
+</p>
+<h3>Usage</h3>
+<p>
+   analyze_1d [<i>arguments</i>]
+</p>
+
+<h3>Arguments</h3>
+<p>
+All arguments are entered as a name (<a href="http://en.wikipedia.org/wiki/Hyphen%E2%80%93minus" target="_blank">hyphen-minus</a> 
+followed by a two-character combination) separated from the associated value by whitespace. An argument without a value is not 
+allowed. If an argument is not provided on the command line, the default value shown below [between square brackets] is used:
+</p>
+<dl>
+   <dt>-if ["raw"]</dt>
+      <dd>Name of input file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-od [""]</dt>
+      <dd>Output directory. If left empty, the input file's root name will be used.</dd>
+   <dt>-la [1000]</dt>
+      <dd>Lambda: coupling constant of scalar potential enforcing the NLSM constraint.</dd>
+   <dt>-al [0..2]</dt>
+      <dd>Analysis level:
+          <ol start=0>
+             <li>Creates legacy ASCII VTK files with derived quantities and "averages.txt" file with lattice-wide averages.</li>
+             <li>Adds "variances.txt" file with variances of quantities reported in "averages.txt".</li>
+             <li>Adds "covariance.txt" file with covariances over distance of electromagnetic vector potential, 
+                 magnetic field, electric field, and scalar field.</li>
+          </ol>
+      </dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+Input (-if) filename and output directory (-od) should require no explanation.
+</p>
+<p>
+Lambda (-la) should normally = the value used to create the input file (assuming it was produced by 
+<a href="evolve_1d.html">evolve_1d</a>).
+</p>
+<p>
+Files created for all choices of analysis level (-al):
+<dl>
+   <dt>A.vtk</dt>
+      <dd>Electromagnetic vector potential.</dd>
+   <dt>B.vtk</dt>
+      <dd>Magnetic field.</dd>
+   <dt>E.vtk</dt>
+      <dd>Electric field.</dd>
+   <dt>theta.vtk</dt>
+      <dd>Scalar field in polar field coordinates.</dd>
+   <dt>rho_E.vtk</dt>
+      <dd>Electric field's energy density.</dd>
+   <dt>rho_B.vtk</dt>
+      <dd>Magnetic field's energy density.</dd>
+   <dt>rho_theta.vtk</dt>
+      <dd>Scalar field's energy density.</dd>
+   <dt>rho_mixed.vtk</dt>
+      <dd>Energy density of mixed (i.e. interaction) scalar-vector terms.</dd>
+   <dt>rho_lambda.vtk</dt>
+      <dd>Energy density of scalar potential enforcing the NLSM constraint. Should ideally = 0 everywhere.</dd>
+   <dt>rho.vtk</dt>
+      <dd>Total energy density.</dd>
+   <dt>p_E.vtk</dt>
+      <dd>Pressure contribution from electric field.</dd>
+   <dt>p_B.vtk</dt>
+      <dd>Pressure contribution from magnetic field.</dd>
+   <dt>p_theta.vtk</dt>
+      <dd>Pressure contribution from scalar field.</dd>
+   <dt>p_mixed.vtk</dt>
+      <dd>Pressure contribution from mixed (i.e. interaction) scalar-vector terms.</dd>
+   <dt>p.vtk</dt>
+      <dd>Total pressure.</dd>
+   <dt>w.vtk</dt>
+      <dd>Pressure over energy density.</dd>
+   <dt>divE.vtk</dt>
+      <dd>Electric field's divergence.</dd>
+   <dt>q.vtk</dt>
+      <dd>Electric charge.</dd>
+   <dt>divEMq.vtk</dt>
+      <dd>Electric field's divergence minus electric charge. Should ideally = 0 everywhere 
+          (<a href="http://en.wikipedia.org/wiki/Gauss's_law#Differential_form_2" target="_blank">Gauss' law</a>).</dd>    
+   <dt>m_hi.vtk</dt>
+      <dd>High eigenvalue of effective photon mass.</dd>
+   <dt>m_mid.vtk</dt>
+      <dd>Middle eigenvalue of effective photon mass.</dd>
+   <dt>m_lo.vtk</dt>
+      <dd>Low eigenvalue of effective photon mass.</dd>
+   <dt>averages.txt</dt>
+      <dd>Lattice-wide averages of most quantities above, plus peak rates of change in electromagnetic and scalar fields.</dd>   
+</dl>
+</p>
+
+<h3>Examples</h3>
+<p>
+<dl>
+   <dt class="example">analyze_1d</dt>
+      <dd class="example">Use the defaults for all argument values.</dd>
+   <dt class="example">analyze_1d -if two_cells -al 1</dt>
+      <dd class="example">Read initial configuration from file "two_cells.vtk", create directory "two_cells", write
+                          level 1 analysis files (i.e. level 0 files + "variances.txt") there.</dd>
+</dl>
+</p>
+
+<h3>See also</h3>
+<p>
+3D counterpart: <a href="analyze.html">analyze</a>.
+To analyze fields produced by <a href="evolve_frw_1d.html">evolve_frw_1d</a>, use <a href="analyze_frw_1d.html">analyze_frw_1d</a>.
+</p>
+</body>
+</html>

@@ -1,0 +1,25 @@
+cd seed
+echo "Building seed"
+mk
+cd ../relax
+echo "Building relax"
+mk
+cd ../optimize
+echo "Building optimize"
+mk
+cd ../p2c
+echo "Building p2c"
+mk
+cd ../evolve
+echo "Building evolve"
+mk
+cd ../evolve_frw
+echo "Building evolve_frw"
+mk
+cd ../analyze
+echo "Building analyze"
+mk
+cd ../analyze_frw
+echo "Building analyze_frw"
+mk
+cd ..

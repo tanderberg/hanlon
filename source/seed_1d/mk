@@ -1,0 +1,1 @@
+g++ -I ../core -Wall -fopenmp -O3 seed_1d.cpp -lm -o ../../bin/seed_1d

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+    <title>Installation</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>Installation</h1>
+<p>
+<p>
+Since you are reading this, I will assume that you have already, 
+<a href="https://github.com/tanderberg/HaNLON/downloads" target="_blank">downloaded</a>
+the distribution archive and unpacked it to a new directory.
+</p>
+For definiteness, I will also assume that you are on a Linux system 
+(<a href="http://www.opensuse.org/en/" target="_blank">openSUSE</a> is a great choice) and that you 
+unpacked the archive to <strong>hanlon</strong> in your home directory. I will further take for granted that 
+you know your way around the 
+<a href="http://www.tuxfiles.org/linuxhelp/cli.html" target="_blank">Linux command line</a> and are
+capable of working around minor problems like needing to 
+<a href="http://en.wikipedia.org/wiki/Chmod#Command_line_examples" target="_blank">set execution permissions</a>. 
+So,
+</p>
+<pre class="console">
+~> <span class="user">ls hanlon</span>
+<strong>bin</strong>  <strong>docs</strong>  license.txt  <strong>source</strong>
+~> 
+</pre>
+<p>
+Under <strong>source</strong>, you should find the following directories:
+<dl>
+   <dt>seed</dt>
+      <dd>Creates random fiekd configurations.</dd>
+   <dt>relax</dt>
+      <dd>Reduces local energy density by selective low pass filtering.</dd>
+   <dt>optimize</dt>
+      <dd>Minimizes local energy density.</dd>
+   <dt>p2c</dt>
+      <dd>Converts static configurations from polar to Cartesian scalar field coordinates.</dd>
+   <dt>evolve</dt>
+      <dd>Computes time evolution of the fields in Minkowski spacetime.</a>
+   <dt>evolve_frw</dt>
+      <dd>Computes time evolution ofthe fields on the FRW metric.</a>
+   <dt>analyze</dt>
+      <dd>Analyzes field configurations produced by <strong>evolve</strong>.</dd>
+   <dt>analyze_frw</dt>
+      <dd>Analyzes field configurations produced by <strong>evolve_frw</strong>.</dd>
+   <dt>core</dt>
+      <dd>Common code used throughout HaNLON.</dd>
+</dl>
+Each directory except <strong>core</strong> also has a similarly named "_1d" counterpart: <strong>seed_1d</strong>, 
+<strong>relax_1d</strong> and so on. These contain equivalent implementations in 1+1 spacetime (one time and 
+one spatial dimension). They were originally written to simulate the evolution of ideal (infinite, 
+plane) domain boundary configurations, but they are also very convenient for familiarizing yourself 
+with the code and its use. The discretized equations are much simpler in 1D, so these programs are 
+shorter, compile and run faster, and produce smaller data files than their 3D equivalents.
+</p>
+<p>
+The <strong>source</strong> directory also contains two shell scripts, "mk_1d" and "mk", which you can use to 
+build all 1D and 3D executables with GNU C++ (on a Linux system with all required development packages
+installed). They simply launch the "mk" script in each program's subdirectory, which creates the 
+corresponding binary in <strong>hanlon/bin</strong>. Let's build all 1D programs:
+</p>
+<pre class="console">
+~> <span class="user">cd hanlon/source</span>
+~/hanlon/source> <span class="user">mk_1d</span>
+Building seed_1d
+Building relax_1d
+Building optimize_1d
+Building p2c_1d
+Building evolve_1d
+Building evolve_frw_1d
+Building analyze_1d
+Building analyze_frw_1d
+~/hanlon/source> <span class="user">ls ../bin</span>
+analyze_frw_1d  optimize_1d  seed_1d  analyze_1d  evolve_frw_1d
+relax_1d        evolve_1d    p2c_1d 
+~/hanlon/source> 
+</pre>
+<p>
+This should only take a few seconds. Building the 3D programs takes longer, especially if you decide to use 
+Intel's <a href="http://software.intel.com/en-us/articles/intel-compilers/" target="_blank">optimizing C++ compiler</a> 
+(recommended for Intel CPUs).
+</p>
+</body>
+</html>

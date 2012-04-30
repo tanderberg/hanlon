@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<head>
+    <title>seed</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>seed</h1>
+<h3>Synopsis</h3>
+<p>
+Creates a <a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a> 
+file containing a randomly seeded, static field configuration in three spatial dimensions. Scalars are in polar field coordinates.
+</p>
+<h3>Usage</h3>
+<p>
+   seed [<i>arguments</i>]
+</p>
+
+<h3>Arguments</h3>
+<p>
+All arguments are entered as a name (<a href="http://en.wikipedia.org/wiki/Hyphen%E2%80%93minus" target="_blank">hyphen-minus</a> 
+followed by a two-character combination) separated from the associated value by whitespace. An argument without a value is not 
+allowed. If an argument is not provided on the command line, the default value shown below [between square brackets] is used:
+</p>
+<dl>
+   <dt>-rs [0]</dt>
+      <dd><a href="http://en.wikipedia.org/wiki/Random_seed" target="_blank">Random seed</a> (can be any long integer).</dd>
+   <dt>-of ["initial"]</dt>
+      <dd>Name of output file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-ot ["Initial"]</dt>
+      <dd>Title of output file. Ends up in the VTK header, can be any descriptive string.</dd>
+   <dt>-ns [64]</dt>
+      <dd>Number of lattice sites (2 to 64).</dd>
+   <dt>-om [0]</dt>
+      <dd>Operating mode, determines which kind of configuration is created:
+          <ol start="0">
+             <li><a href="http://en.wikipedia.org/wiki/Voronoi_cell" target="_blank">Voronoi cells</a>.</li>
+             <li>Isolated pulses on vanishing background.</li>
+             <li>Smooth, periodic configuration.</li>
+             <li>Tubes with elliptic section following closed, random 
+                 <a href="http://en.wikipedia.org/wiki/Cubic_Hermite_spline#Catmull.E2.80.93Rom_spline" target="_blank">Catmull-Rom spline</a> 
+                 paths on vanishing background.</li>
+          </ol>
+      </dd>
+   <dt>-nc [10]</dt>
+      <dd>By operating mode:
+          <ol start="0">
+             <li>Number of Voronoi cells.</li>
+             <li>Number of pulses.</li>
+             <li>Ignored.</li>
+             <li>Number of spline control points.</li>
+          </ol>
+      </dd>
+   <dt>-nt [1]</dt>
+      <dd>Number of tubes for -om 3. Ignored for other -om.</dd>
+   <dt>-bw [5]</dt>
+      <dd>By operating mode:
+          <ol start="0">
+             <li>Number of lattice sites interpolating between Voronoi cells.</li>
+             <li>Number of lattice sites interpolating between pulse centers and surrounding vacuum.</li>
+             <li>Ignored.</li>
+             <li>Number of lattice sites interpolating between tube surfaces and surrounding vacuum.</li>
+          </ol>
+      </dd>
+   <dt>-af [1]</dt>
+      <dd>A factor applied to the initial, randomly generated electromagnetic vector potential. Use -af 0 for pure NLSM.</dd>
+   <dt>-nx [1]</dt>
+      <dd>By operating mode:
+          <ol start="0">
+             <li>Ignored.</li>
+             <li>Ignored.</li>
+             <li>Number of periods along x axis.</li>
+             <li>Radius along first <a href="http://en.wikipedia.org/wiki/Ellipse#Elements_of_an_ellipse" target="_blank">semi-axis</a> 
+                 of each tube (lattice units).</li>
+          </ol>
+      </dd>
+   <dt>-ny [1]</dt>
+      <dd>By operating mode:
+          <ol start="0">
+             <li>Ignored.</li>
+             <li>Ignored.</li>
+             <li>Number of periods along y axis.</li>
+             <li>Radius along second <a href="http://en.wikipedia.org/wiki/Ellipse#Elements_of_an_ellipse" target="_blank">semi-axis</a> 
+                 of each tube (lattice units).</li>
+          </ol>
+      </dd>
+   <dt>-nz [1]</dt>
+      <dd>By operating mode:
+          <ol start="0">
+             <li>Ignored.</li>
+             <li>Ignored.</li>
+             <li>Number of periods along z axis.</li>
+             <li>Number of periods along full length of each tube 
+                 (<a href="http://en.wikipedia.org/wiki/Toroidal_and_poloidal" target="_blank">toroidal direction</a>).</li>
+          </ol>
+      </dd>
+   <dt>-np [1]</dt>
+      <dd>Number of periods along <a href="http://en.wikipedia.org/wiki/Toroidal_and_poloidal" target="_blank">poloidal direction</a> 
+          for -om 3. Ignored for other -om.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+Filename (-of) and number of lattice sites (-dt) should require no explanation. The title (-ot) is just a string which 
+ends up in the header of the output file, and might be useful for tagging it. 
+</p>
+<p>
+The ability to specify a random seed makes it possible to recreate an initial configuration, provided that the same 
+executable is used again on the same system (do not expect the same random seed to produce the same result with an 
+executable created using a different compiler or math library).
+</p>
+<p>
+Operating mode (-om) determines the kind of configuration to be created. The default is Voronoi cells. In this mode, 
+the number of control points (-nc) is the number of cells and boundary width (-bw) is the number of lattice sites in 
+each interpolation layer separating them. For pulses (-om 1), the configuration is a set of isolated bumps on a 
+constant (zero) background, in which case -nc sets the number of bumps and -bw sets their half width (distance 
+from peak to onset of constant background).
+</p>
+<p>
+In "periodic" operating mode (-om 2), the entire configuration smoothly interpolates between the field values at the 
+center of the lattice and its borders, optionally more than once (-nx, -ny, nz). In this modee, the -nc and -bw 
+parameters are ignored.
+</p>
+<p>
+In "tubes" mode (-om 3), the control points shape closed paths followed by Catmull-Rom splines, along which tubular
+field configurations are created on a constant (zero) background. The -bw argument sets the width of the tube surfaces
+distance from surface to onset of constant background). The tubes have elliptic sections; the length of the two axes
+are set with -nx and -ny. The fields can be rotated an integral number of times along each tube's length (-nz) and
+circumference (-np).
+</p>
+<p>
+Finally, the A factor (-af) multiplies the randomly generated electromagnetic vector potential, and can be used to obtain 
+a desired mix of initial magnetic versus scalar field energy. For pure NLSM, i.e. no electromagnetism, use -af 0.
+</p>
+<p>
+All momenta are set to 0. Since the time-axial gauge is used, this implies vanishing electric fields and charge densities.
+</p>
+
+<h3>Examples</h3>
+<p>
+<dl>
+   <dt class="example">seed</dt>
+      <dd class="example">Run seed using the defaults for all argument values.</dd>
+   <dt class="example">seed -nc 2 -of two_cells</dt>
+      <dd class="example">Create two Voronoi cells, name the output file "two_cells.vtk".</dd>
+   <dt class="example">seed -om 1 -nc 1 -of pulse</dt>
+      <dd class="example">Create a single pulse, name the output file "pulse.vtk".</dd>
+   <dt class="example">seed -om 3 -nc 3 -nx 5 -ny 10 -of tube</dt>
+      <dd class="example">Create a tube following three control points, with minor axis 5 lattice units long 
+                          and major axis 10 lattice units long. Name the output file "tube.vtk".</dd>
+</dl>
+</p>
+
+<h3>See also</h3>
+<p>
+The output from seed is usually input for <a href="relax.html">relax</a>.
+</p>
+<p>
+1D counterpart: <a href="seed_1d.html">seed_1d</a>.
+</p>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+    <title>seed_1d</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>seed_1d</h1>
+<h3>Synopsis</h3>
+<p>
+Creates a <a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a> 
+file containing a randomly seeded, static field configuration in one spatial dimension. Scalars are in polar field coordinates.
+</p>
+<h3>Usage</h3>
+<p>
+   seed_1d [<i>arguments</i>]
+</p>
+
+<h3>Arguments</h3>
+<p>
+All arguments are entered as a name (<a href="http://en.wikipedia.org/wiki/Hyphen%E2%80%93minus" target="_blank">hyphen-minus</a> 
+followed by a two-character combination) separated from the associated value by whitespace. An argument without a value is not 
+allowed. If an argument is not provided on the command line, the default value shown below [between square brackets] is used:
+</p>
+<dl>
+   <dt>-rs [0]</dt>
+      <dd><a href="http://en.wikipedia.org/wiki/Random_seed" target="_blank">Random seed</a> (can be any long integer).</dd>
+   <dt>-of ["initial"]</dt>
+      <dd>Name of output file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-ot ["Initial"]</dt>
+      <dd>Title of output file. Ends up in the VTK header, can be any descriptive string.</dd>
+   <dt>-ns [1024]</dt>
+      <dd>Number of lattice sites (2 to 8196).</dd>
+   <dt>-om [0]</dt>
+      <dd>Operating mode. 0 for cells; 1 for isolated pulses on vanishing background; 2 for a smooth, periodic configuration.</dd>
+   <dt>-nc [10]</dt>
+      <dd>Number of cells for -om 0, of pulses for -om 1. Ignored for -om 2.</dd>
+   <dt>-bw [20]</dt>
+      <dd>Number of lattice sites interpolating between cells for -om 0 or between pulse centers and surrounding vacuum for -om 1.
+          Ignored for -om 2.</dd>
+   <dt>-af [1]</dt>
+      <dd>A factor applied to the initial, randomly generated electromagnetic vector potential. Use -af 0 for pure NLSM.</dd>
+   <dt>-nx [1]</dt>
+      <dd>Number of periods for -om 2. Ignored for other -om.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+Filename (-of) and number of lattice sites (-dt) should require no explanation. The title (-ot) is just a string which 
+ends up in the header of the output file, and might be useful for tagging it. The ability to specify a random seed
+makes it possible to recreate an initial configuration, provided that the same executable is used again on the same 
+system (do not expect the same random seed to produce the same result with an executable created using a different 
+compiler or math library).
+</p>
+<p>
+Operating mode (-om) determines the kind of configuration to be created. The default is Voronoi cells, which
+in 1D simply means sequences of constant field values separated by interpolating transition layers (boundaries). 
+In this mode, the number of control points (-nc) is the number of cells and boundary width (-bw) is the number of 
+lattice sites in each interpolation layer. For pulses (-om 1), the configuration is a set of isolated bumps on a 
+constant (zero) background, in which case -nc sets the number of bumps and -bw sets their half width (distance 
+from peak to onset of constant background).
+</p>
+<p>
+In "periodic" operating mode (-om 2), the entire configuration is a transition layer, smoothly interpolating between the 
+field values at the center of the lattice and its borders, optionally more than once (-nx). In this mode, the -nc and -bw 
+parameters are ignored. You could argue that -nx is redundant; -nc could convey the same information in this case. But this
+would not carry over to 3D, where we also need -ny and -nz parameters.
+</p>
+<p>
+Finally, the A factor (-af) multiplies the randomly generated electromagnetic vector potential, and can be used to obtain 
+a desired mix of initial magnetic versus scalar field energy. For pure NLSM, i.e. no electromagnetism, use -af 0.
+</p>
+<p>
+All momenta are set to 0. Since the time-axial gauge is used, this implies vanishing electric fields and charge densities.
+</p>
+
+<h3>Examples</h3>
+<p>
+<dl>
+   <dt class="example">seed_1d</dt>
+      <dd class="example">Run seed_1d using the defaults for all argument values.</dd>
+   <dt class="example">seed_1d -nc 2 -of two_cells</dt>
+      <dd class="example">Create two cells, name the output file "two_cells.vtk".</dd>
+   <dt class="example">seed_1d -om 1 -nc 1 -of pulse</dt>
+      <dd class="example">Create a single pulse, name the output file "pulse.vtk".</dd>
+</dl>
+</p>
+
+<h3>See also</h3>
+<p>
+The output from seed_1d is usually input for <a href="relax_1d.html">relax_1d</a>.
+</p>
+<p>
+3D counterpart: <a href="seed.html">seed</a>.
+</p>
+</body>
+</html>

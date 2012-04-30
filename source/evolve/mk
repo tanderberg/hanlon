@@ -1,0 +1,1 @@
+g++ -I ../core -Wall -fopenmp -O3 evolve.cpp -lm -o ../../bin/evolve

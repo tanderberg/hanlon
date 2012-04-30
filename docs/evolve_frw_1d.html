@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<head>
+    <title>evolve_frw_1d</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>evolve_frw_1d</h1>
+<h3>Synopsis</h3>
+<p>
+Reads a <a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a> 
+file containing a field configuration in one spatial dimension, evolves it on the spatially flat 
+<a href="http://en.wikipedia.org/wiki/Friedmann-Lema%C3%AEtre-Robertson-Walker_metric" target="_blank">FRW metric</a>
+reduced to 1+1D and saves snapshots of the evolving field configurations to new VTK files at regular conformal time intervals. 
+Scalars are read and written in Cartesian field coordinates.
+</p>
+<h3>Usage</h3>
+<p>
+   evolve_frw_1d [<i>arguments</i>]
+</p>
+
+<h3>Arguments</h3>
+<p>
+All arguments are entered as a name (<a href="http://en.wikipedia.org/wiki/Hyphen%E2%80%93minus" target="_blank">hyphen-minus</a> 
+followed by a two-character combination) separated from the associated value by whitespace. An argument without a value is not 
+allowed. If an argument is not provided on the command line, the default value shown below [between square brackets] is used:
+</p>
+<dl>
+   <dt>-if ["cartesian"]</dt>
+      <dd>Name of input file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-of ["evolved"]</dt>
+      <dd>Root name of output files. Do not use file extensions; ".vtk" is automatically appended, 
+          along wth the simulation step number at which each file was written.</dd>
+   <dt>-ot ["Evolved"]</dt>
+      <dd>Title of output files. Ends up in the VTK headers, can be any descriptive string (but see important note below).</dd>
+   <dt>-da [-0.0001]</dt>
+      <dd>Initial relative step size for FRW scale factor (da/a). Determines initial conformal time step.</dd>
+   <dt>-la [1000]</dt>
+      <dd>Lambda: coupling constant of scalar potential enforcing the NLSM constraint.</dd>
+   <dt>-eo [1e-6]</dt>
+      <dd>Epsilon: max acceptable relative integration error, per lattice site and time step.</dd>
+   <dt>-mi [100]</dt>
+      <dd>Max number of iterations in non-linear solver, per lattice site and time step.</dd>
+   <dt>-mt [-1]</dt>
+      <dd>Max conformal time in lattice units. Unlimited if <= 0. Must be larger than -t0.</dd>
+   <dt>-ms [-1]</dt>
+      <dd>Max number of time steps. Unlimited if <= 0.</dd>
+   <dt>-sp [50]</dt>
+      <dd>Simulated (conformal) time between successive snapshot files, in lattice units.</dd>
+   <dt>-rp [0]</dt>
+      <dd>Simulated (conformal) time between reports (written to standard output) in lattice units.</dd>
+   <dt>-t0 [0]</dt>
+      <dd>Start time (conformal). This is just an arbitrary reference point on the time axis.</dd>
+   <dt>-df [1]</dt>
+      <dd>Time step factor for a(t) (FRW scale factor). Set it = 0 to prevent metric expansion.</dd>
+   <dt>-h0 [71]</dt>
+      <dd>Initial Hubble parameter (km/s/Mpc).</dd>
+   <dt>-os [1]</dt>
+      <dd>Fraction of the universe's total energy contributed by the simulated fields.</dd>
+   <dt>-od [0]</dt>
+      <dd>Fraction of the universe's total energy contributed by "dust" (i.e. pressure-less) matter.</dd>
+   <dt>-ov [0]</dt>
+      <dd>Fraction of the universe's total energy contributed by the vacuum (cosmological constant).</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+Input (-if) and output filenames (-of) should require no explanation. The title (-ot) is just a string 
+which ends up in the header of the output file, and might be useful for tagging it.
+</p>
+<p>
+<strong>IMPORTANT</strong>: The title header is also used to store time, FRW scale factor and energy densities of 
+radiation, dust and vacuum in a form expected by <a href="analyze_frw.html">analyze_frw</a>. -ot lines 
+which resemble this automatically created part of the header will confuse analyze_frw.
+</p>
+<p>
+The roles of -mt (max conformal time), -ms (max number of time steps), -sp (conformal time between sucessive 
+snapshot files) and -rp (conformal time between reports to standard output) should also be clear. Keep in mind
+that time is conformal, so time steps in linear (ordinary) time become shorter for smaller metric scale factors. 
+Also note that -mt and -ms have overlapping functionality; one or the other may be more convenient, depending 
+on circumstances.
+</p>
+<p>
+<strong>WARNING:</strong> with the default -mt and -ms, the simulation will run until you 
+<a href="http://en.wikipedia.org/wiki/Kill_(command)" target="_blank">kill</a> it.
+</p>
+<p>
+Unlike its <a href="evolve_1d.html">static spacetime equivalent</a>, evolve_frw_1d does not have a time step 
+argument. Instead, you use the -da argument to specify the initial relative change in the FRW scale factor a(t) (i.e. da/a).
+This (along with the initial <a href="http://en.wikipedia.org/wiki/Hubble%27s_law" target="_blank">Hubble parameter</a>, 
+-h0) is turned into a fixed conformal time step using the first 
+<a href="http://en.wikipedia.org/wiki/Friedmann_equations#The_equations" target="_blank">Friedmann equation</a>.
+Both conformal time (starting from the arbitrary -t0, which should be left = 0 unless there is some good reason
+not to) and physical time (in seconds) are reported to standard output, along with scale factor and energy
+densities.
+</p>
+<p>
+The initial scale factor is obtained from the requirement that total energy density equal critical energy density
+(which is computed from -h0). Total energy density is computed from -os, the fraction contributed by the simulated 
+fields. The rest is made up of dust matter (-od) and vacuum energy (-ov), with radiation implicitly chosen so as to 
+make the total <a href="http://en.wikipedia.org/wiki/Friedmann_equations#Density_parameter" target="_blank">density parameter</a>
+= 1.
+</p>
+<p>
+The metric scale factor a(t) is advanced by simple 
+<a href="http://en.wikipedia.org/wiki/Forward_Euler_method" target="_blank">forward Euler integration</a>, which is 
+not as bad as it may seem given the small conformal time steps corresponding to scales of cosmological interest.
+The time step factor (-df) multiplies the conformal time step in the a(t) integrator (and nowhere else). It should
+normally be left = 1. Its most obvious use is for testing that field evolution does not diverge and that energy 
+remains conserved in the static limit -df 0.
+</p>
+<p>
+Lambda (-la) is essentially the strength of the constraint imposed on the scalars to keep their norm = 1. 
+Ideally, it should be infinite. In practice, larger -la requires shorter time steps to keep the jitters 
+around the constraint surface from diverging, so there is a tradeoff between constraint quality and
+runtime. The default value (1000) seems to be a good compromise for many cases of interest. Internally, 
+-la is divided by the FRW scale factor a(t) in order to keep it from completely dominating the dynamics.
+</p>
+<p>
+Epsilon (-eo) is essentially the largest acceptable relative change in any field value at any lattice site
+between successive iterations of the non-linear solver at the core of the program's Störmer-Verlet integrator.
+If this value is exceeded at any lattice site, the solver goes through another iteration for all lattice sites.
+This continues until there is convergence or the maximum number of allowed iterations (-mi) is exceeded. In the 
+latter case, cascading divergences are likely to ensue, along with rapid deviations from energy conservation,
+and the simulation can no longer be trusted. Increasing -mi may help in some cases, but usually only a smaller
+time step will.
+</p>
+<p>
+The -eo and -mi arguments are only recognized and used when the program is compiled with the default Störmer-Verlet 
+integrator. Euler and fourth order Runge-Kutta integrators are also implemented in the source code, and the program 
+can be compiled to use those instead. Euler integration should not be considered for production runs, but may be
+useful for pedagogical and testing purposes. Runge-Kutta integration might be competitive with Störmer-Verlet in
+some cases.
+</p>
+
+<h3>Examples</h3>
+<p>
+<dl>
+   <dt class="example">evolve_frw_1d</dt>
+      <dd class="example">Use the defaults for all argument values. <strong>WARNING:</strong> This will cause the program 
+                          to run until you <a href="http://en.wikipedia.org/wiki/Kill_(command)" target="_blank">kill</a> it.</dd>
+   <dt class="example">evolve_frw_1d -if two_cells -of evolved_two_cells</dt>
+      <dd class="example">Read initial configuration from file "two_cells.vtk", write snapshots to files 
+                          named "evolved_two_cells_N.vtk", where N is the simulation step number. Again, run until killed.</dd>
+   <dt class="example">evolve_frw_1d -h0 3e4 -od 0.5 -ov 0 -os 1e-35 -da 1e-5 -sp 2000</dt>
+      <dd class="example">Start the simulation in an early universe expanding at 30000 km/s/Mpc, with 50% of its energy in dust,
+                          no vacuum energy, a tiny fraction (1e-35) in the simulated fields, and the rest in radiation. Set the initial
+                          fractional scale factor step to 1e-5 and write a report to standard output every 2000 time steps.</dd>
+</dl>
+</p>
+
+<h3>See also</h3>
+<p>
+The output from evolve_frw_1d is usually input for <a href="analyze_frw_1d.html">analyze_frw_1d</a>.
+</p>
+<p>
+3D counterpart: <a href="evolve_frw.html">evolve_frw</a>.
+To evolve the fields in static 1+1D spacetime, use <a href="evolve_1d.html">evolve_1d</a>.
+</p>
+</body>
+</html>

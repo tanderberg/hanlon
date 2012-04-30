@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <title>p2c</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>p2c</h1>
+<h3>Synopsis</h3>
+<p>
+Reads a field configuration in three spatial dimensions from a 
+<a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a> 
+file with scalars in polar field coordinates, and writes it to a new VTK file, converting the scalars to Cartesian coordinates.
+</p>
+<h3>Usage</h3>
+<p>
+   p2c [<i>arguments</i>]
+</p>
+
+<h3>Arguments</h3>
+<p>
+All arguments are entered as a name (<a href="http://en.wikipedia.org/wiki/Hyphen%E2%80%93minus" target="_blank">hyphen-minus</a> 
+followed by a two-character combination) separated from the associated value by whitespace. An argument without a value is not 
+allowed. If an argument is not provided on the command line, the default value shown below [between square brackets] is used:
+</p>
+<dl>
+   <dt>-if ["initial"]</dt>
+      <dd>Name of input file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-of ["p2ced"]</dt>
+      <dd>Name of output file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+Input (-if) and output filenames (-of) should require no explanation.
+</p>
+<p>
+All momenta are set to 0.
+</p>
+
+<h3>Examples</h3>
+<p>
+<dl>
+   <dt class="example">p2c</dt>
+      <dd class="example">Run p2c using the defaults for all argument values.</dd>
+   <dt class="example">p2c -if polar_file -of cartesian_file</dt>
+      <dd class="example">Read "polar_file.vtk", write "cartesian_file.vtk".</dd>
+</dl>
+</p>
+
+<h3>See also</h3>
+<p>
+The output from p2c is usually input for <a href="evolve.html">evolve</a>.
+</p>
+<p>
+1D counterpart: <a href="p2c_1d.html">p2c_1d</a>.
+</p>
+</body>
+</html>

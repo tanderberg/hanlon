@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <title>Introduction</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>Introduction</h1>
+<p>
+<a href="http://simplicial.net/hanlon/" target="_blank">HaNLON</a> (named after the
+<a href="http://en.wikipedia.org/wiki/Hanlon's_razor" target="_blank">eponymous razor</a>;
+officially short for Hamiltonian Non-Linear Open Numerics) is a package of
+<a href="http://en.wikipedia.org/wiki/C%2B%2B" target="_blank">C++</a> libraries and 
+programs created to study the dynamics of the standard model of electroweak interactions 
+in the low energy, long distance limit. The derivation and physical interpretation of the 
+effective Lagrangian upon which it is based are discussed in 
+<a href="http://arxiv.org/abs/0711.3187" target="_blank">arXiv:0711.3187</a> and, more at 
+length, in 
+<a href="http://arxiv.org/abs/0804.2284" target="_blank">arXiv:0804.2284</a>.
+</p>
+<p>
+HaNLON's core components are lattice and stencil objects. Specialized programs built on this 
+common core are used to seed initial field configurations, relax and optimize them, convert 
+them from polar to Cartesian coordinates, evolve them in time, and analyze the results. Field 
+data is passed between the different programs using 
+<a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a>
+format files for portability, ease of inspection (any text editor capable of handling large 
+text files will do) and visualization (using e.g. <a href="http://www.paraview.org/" target="_blank">ParaView</a> 
+or <a href="https://wci.llnl.gov/codes/visit/" target="_blank">VisIt</a>).
+</p>
+<p>
+All HaNLON programs run from the command line and should require little effort to build and 
+use on common computing platforms (*nix, Windows, Mac). Build scripts for the standard 
+GNU/Linux C++ toolchain are included in the source distribution.
+</p>
+</body>
+</html>

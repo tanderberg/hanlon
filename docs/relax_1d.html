@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+    <title>relax_1d</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>relax_1d</h1>
+<h3>Synopsis</h3>
+<p>
+Reads a <a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a> 
+file containing a field configuration in one spatial dimension, reduces its static energy density by selective 
+<a href="http://en.wikipedia.org/wiki/Low-pass_filter" target="_blank">low pass filtering</a> and writes the resulting field 
+configuration to a new VTK file. Scalars are read and written in polar field coordinates.
+</p>
+<h3>Usage</h3>
+<p>
+   relax_1d [<i>arguments</i>]
+</p>
+
+<h3>Arguments</h3>
+<p>
+All arguments are entered as a name (<a href="http://en.wikipedia.org/wiki/Hyphen%E2%80%93minus" target="_blank">hyphen-minus</a> 
+followed by a two-character combination) separated from the associated value by whitespace. An argument without a value is not 
+allowed. If an argument is not provided on the command line, the default value shown below [between square brackets] is used:
+</p>
+<dl>
+   <dt>-sf ["signal.txt"]</dt>
+      <dd>Name of optional signal file, used to issue commands to running program.</dd>
+   <dt>-if ["initial"]</dt>
+      <dd>Name of input file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-of ["relaxed"]</dt>
+      <dd>Name of output file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-ot ["Relaxed"]</dt>
+      <dd>Title of output file. Ends up in the VTK header, can be any descriptive string.</dd>
+   <dt>-ns [10]</dt>
+      <dd>Number of low pass sweeps between convergence checks.</dd>
+   <dt>-rr [1e-6]</dt>
+      <dd>Minimum required relative improvement. If energy is reduced less between successive 
+          convergence checks, the program terminates.</dd>
+   <dt>-wt [1e-4]</dt>
+      <dd>Central weight stepping threshold. When relative energy reduction between successive 
+          convergence checks falls below this value, the weight of the central cell in the low 
+          pass filter stencil is incremented by -ws.</dd>
+   <dt>-ws [1e-2]</dt>
+      <dd>Incremental step for weight of central cell in low pass filter stencil.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+Input (-if) and output filenames (-of) should require no explanation. The title (-ot) is just a string 
+which ends up in the header of the output file, and might be useful for tagging it.
+</p>
+<p>
+The optional signal file specified with -sf is expected to be a plain text file. If present, it is
+read before each convergence check. The following commands are recognized:
+<dl>
+   <dt>abort</dt>
+      <dd>Terminate execution immediately with <a href="http://en.wikipedia.org/wiki/Exit_status#Unix" target="_blank">exit status</a> 1.</dd>
+   <dt>quit</dt>
+      <dd>Terminate execution immediately with exit status 0 (normal termination).</dd>
+   <dt>save</dt>
+      <dd>Save current field configuration.</dd>
+   <dt>save N</dt>
+      <dd>Save field configuration after N (an integer) low pass sweeps. Example: save 10000</dd>
+</dl>
+</p>
+<p>
+The -ns, -rr, -wt and -ws arguments control the relaxation algorithm. On each sweep, the current 
+energy density at each lattice site is compared with the energy densities obtained by low-pass 
+filtering only the electromagnetic vector potential, only the scalar fields, and both (at that site 
+only, i.e. without modifying the fields at other sites). The field values yielding the lowest energy 
+density are stored in a new lattice. When the entire lattice has been processed, the two lattices are 
+swapped ("ping-pong"). Every -ns sweeps, total energy is computed and compared with the previously 
+computed value. If it's higher, or if the relative improvement is less than -rr, the program terminates.
+Otherwise, if the relative improvement is less than -wt, the weight of the central cell in the low 
+pass filter stencil is incremented by -ws.
+</p>
+<p>
+The filter starts out with vanishing central weight, effectively replacing every site with an average 
+of its neighbors, then gradually becomes less aggressive as the central weight is incremented, "polishing" 
+field values until there is no further significant improvement. Performing multiple sweeps between total 
+energy comparisons speeds up execution, but can cause the best result to be missed. Reducing -ns, -ws, -wt 
+and -rr (in that order) may produce better results, but keep in mind that relax_1d is primarily meant as a 
+preprocessor for <a href="optimize_1d.html">optimize_1d</a>.
+</p>
+<p>
+All momenta are ignored. Only static energy is minimized. Periodic boundary conditions (i.e. ring lattice 
+topology) are used.
+</p>
+
+<h3>Examples</h3>
+<p>
+<dl>
+   <dt class="example">relax_1d</dt>
+      <dd class="example">Run relax_1d using the defaults for all argument values.</dd>
+   <dt class="example">relax_1d -ns 1</dt>
+      <dd class="example">Check convergence after every low pass sweep.</dd>
+   <dt class="example">relax_1d -ns 1 -wt 1e-5 -ws 1e-3</dt>
+      <dd class="example">Check convergence after every low pass sweep and increment the central 
+                          stencil weight by really small steps once every blue moon.</dd>
+</dl>
+</p>
+
+<h3>See also</h3>
+<p>
+The output from relax_1d is usually input for <a href="optimize_1d.html">optimize_1d</a>.
+</p>
+<p>
+3D counterpart: <a href="relax.html">relax</a>.
+</p>
+</body>
+</html>

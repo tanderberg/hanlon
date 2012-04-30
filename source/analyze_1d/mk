@@ -1,0 +1,1 @@
+g++ -I ../core -Wall -fopenmp -O3 analyze_1d.cpp -lm -o ../../bin/analyze_1d

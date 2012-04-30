@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+    <title>optimize</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>optimize</h1>
+<h3>Synopsis</h3>
+<p>
+Reads a <a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a> 
+file containing a field configuration in three spatial dimensions, reduces its static energy density by local
+<a href="http://en.wikipedia.org/wiki/BFGS_method" target="_blank">Broyden-Fletcher-Goldfarb-Shanno (BFGS)</a> optimization 
+and writes the resulting field configuration to a new VTK file. Scalars are read and written in polar field coordinates.
+</p>
+<h3>Usage</h3>
+<p>
+   optimize [<i>arguments</i>]
+</p>
+
+<h3>Arguments</h3>
+<p>
+All arguments are entered as a name (<a href="http://en.wikipedia.org/wiki/Hyphen%E2%80%93minus" target="_blank">hyphen-minus</a> 
+followed by a two-character combination) separated from the associated value by whitespace. An argument without a value is not 
+allowed. If an argument is not provided on the command line, the default value shown below [between square brackets] is used:
+</p>
+<dl>
+   <dt>-sf ["signal.txt"]</dt>
+      <dd>Name of optional signal file, used to issue commands to running program.</dd>
+   <dt>-if ["relaxed"]</dt>
+      <dd>Name of input file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-of ["optimizeed"]</dt>
+      <dd>Name of output file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-ot ["Optimizeed"]</dt>
+      <dd>Title of output file. Ends up in the VTK header, can be any descriptive string.</dd>
+   <dt>-mi [1000]</dt>
+      <dd>Max number of BFGS iterations per lattice site and sweep. Failure to converge within this
+          number of iterations causes a warning to be written to standard output and the suboptimal 
+          field values known at that point to be used.</dd>
+   <dt>-ss [0.1]</dt>
+      <dd>Initial BFGS step size.</dd>
+   <dt>-at [0.001]</dt>
+      <dd>Absolute energy density tolerance for line minimization part of BFGS algorithm.</dd>
+   <dt>-gt [1e-6]</dt>
+      <dd>Absolute energy density gradient tolerance for BFGS algorithm. Convergence at each lattice 
+          site is tested by comparing the norm of the gradient of energy density with this number.</dd>
+   <dt>-rt [0.0001]</dt>
+      <dd>Relative total energy tolerance.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+Input (-if) and output filenames (-of) should require no explanation. The title (-ot) is just a string 
+which ends up in the header of the output file, and might be useful for tagging it.
+</p>
+<p>
+The optional signal file specified with -sf is expected to be a plain text file. If present, it is
+read before each convergence check. The following commands are recognized:
+<dl>
+   <dt>abort</dt>
+      <dd>Terminate execution immediately with <a href="http://en.wikipedia.org/wiki/Exit_status#Unix" target="_blank">exit status</a> 1.</dd>
+   <dt>quit</dt>
+      <dd>Terminate execution immediately with exit status 0 (normal termination).</dd>
+   <dt>save</dt>
+      <dd>Save current field configuration.</dd>
+   <dt>save N</dt>
+      <dd>Save field configuration after N (an integer) low pass sweeps. Example: save 10000</dd>
+</dl>
+</p>
+<p>
+The -mi and -rt arguments control how far optimization is pushed, independently of algorithm. On each sweep, 
+the current energy density at each lattice site is minimized (at that site only, i.e. without modifying the 
+fields at other sites). The field values yielding the lowest energy density are stored in a new lattice. The 
+-mi argument limits the number of iterations which the optimization algorithm is allowed at each lattice site. 
+Failure to converge within this number of iterations causes a warning to be written to standard output and the
+suboptimal field values known at that point to be used. When the entire lattice has been processed, the two 
+lattices are swapped ("ping-pong"). Total energy is then computed and compared with the previous value. If 
+it's higher, or if the relative improvement is less than -rt, the program terminates.
+</p>
+<p>
+The actual optimization at each lattice site is done using the GSL's BFGS implementation  
+<a href="http://www.gnu.org/software/gsl/manual/html_node/Multimin-Algorithms-with-Derivatives.html" target="_blank">gsl_multimin_fdfminimizer_vector_bfgs2</a>.
+The -ss and -at arguments map straight to <i>step_size</i> and <i>tol</i> in
+<a href="http://www.gnu.org/software/gsl/manual/html_node/Initializing-the-Multidimensional-Minimizer.html" target="_blank">gsl_multimin_fdfminimizer_set</a>,
+while -gt becomes <i>epsabs</i> in <a href="http://www.gnu.org/software/gsl/manual/html_node/Multimin-Stopping-Criteria.html" target="_blank">gsl_multimin_test_gradient</a>.
+</p>
+<p>
+All momenta are ignored. Only static energy is minimized. Periodic boundary conditions (i.e. toroidal lattice 
+topology) are used.
+</p>
+
+<h3>Examples</h3>
+<p>
+<dl>
+   <dt class="example">optimize</dt>
+      <dd class="example">Run optimize using the defaults for all argument values.</dd>
+   <dt class="example">optimize -ss 1e-3</dt>
+      <dd class="example">Use a shorter initial step size.</dd>
+</dl>
+</p>
+
+<h3>See also</h3>
+<p>
+The output from optimize is usually input for <a href="p2c.html">p2c</a>.
+</p>
+<p>
+1D counterpart: <a href="optimize_1d.html">optimize_1d</a>.
+</p>
+</body>
+</html>

@@ -1,0 +1,25 @@
+cd seed_1d
+echo "Building seed_1d"
+mk
+cd ../relax_1d
+echo "Building relax_1d"
+mk
+cd ../optimize_1d
+echo "Building optimize_1d"
+mk
+cd ../p2c_1d
+echo "Building p2c_1d"
+mk
+cd ../evolve_1d
+echo "Building evolve_1d"
+mk
+cd ../evolve_frw_1d
+echo "Building evolve_frw_1d"
+mk
+cd ../analyze_1d
+echo "Building analyze_1d"
+mk
+cd ../analyze_frw_1d
+echo "Building analyze_frw_1d"
+mk
+cd ..

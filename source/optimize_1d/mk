@@ -1,0 +1,1 @@
+g++ -I ../core -Wall -fopenmp -O3 optimize_1d.cpp -lgsl -lgslcblas -lm -o ../../bin/optimize_1d

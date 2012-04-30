@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<head>
+    <title>evolve_1d</title>
+    <link rel="stylesheet" type="text/css" href="docs.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<h1>evolve_1d</h1>
+<h3>Synopsis</h3>
+<p>
+Reads a <a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a> 
+file containing a field configuration in one spatial dimension, evolves it in static 1+1D spacetime and saves snapshots of the 
+evolving field configurations to new VTK files at regular simulated time intervals. Scalars are read and written in Cartesian 
+field coordinates.
+</p>
+<h3>Usage</h3>
+<p>
+   evolve_1d [<i>arguments</i>]
+</p>
+
+<h3>Arguments</h3>
+<p>
+All arguments are entered as a name (<a href="http://en.wikipedia.org/wiki/Hyphen%E2%80%93minus" target="_blank">hyphen-minus</a> 
+followed by a two-character combination) separated from the associated value by whitespace. An argument without a value is not 
+allowed. If an argument is not provided on the command line, the default value shown below [between square brackets] is used:
+</p>
+<dl>
+   <dt>-if ["cartesian"]</dt>
+      <dd>Name of input file. Do not use file extensions; ".vtk" is automatically appended.</dd>
+   <dt>-of ["evolved"]</dt>
+      <dd>Root name of output files. Do not use file extensions; ".vtk" is automatically appended, 
+          along wth the simulation step number at which each file was written.</dd>
+   <dt>-ot ["Evolved"]</dt>
+      <dd>Title of output files. Ends up in the VTK headers, can be any descriptive string.</dd>
+   <dt>-dt [0.0001]</dt>
+      <dd>Time step in lattice units.</dd>
+   <dt>-la [1000]</dt>
+      <dd>Lambda: coupling constant of scalar potential enforcing the NLSM constraint.</dd>
+   <dt>-eo [1e-6]</dt>
+      <dd>Epsilon: max acceptable relative integration error, per lattice site and time step.</dd>
+   <dt>-mi [100]</dt>
+      <dd>Max number of iterations in non-linear solver, per lattice site and time step.</dd>
+   <dt>-mt [-1]</dt>
+      <dd>Max simulated time in lattice units. Unlimited if <= 0.</dd>
+   <dt>-ms [-1]</dt>
+      <dd>Max number of time steps. Unlimited if <= 0.</dd>
+   <dt>-sp [1]</dt>
+      <dd>Time between successive snapshot files, in lattice units.</dd>
+   <dt>-rp [0]</dt>
+      <dd>Time between reports (step number and simulation time, written to standard output) in lattice units.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+Input (-if) and output filenames (-of) should require no explanation. The title (-ot) is just a string 
+which ends up in the header of the output file, and might be useful for tagging it.
+</p>
+<p>
+The roles of -dt (time step), -mt (max simulated time), -ms (max number of time steps), -sp (simulated 
+time between sucessive snapshot files) and -rp (simulated time between reports to standard output) should 
+also be clear. Note that -mt and -ms have overlapping functionality; one or the other may be more convenient, 
+depending on circumstances.
+</p>
+<p>
+<strong>WARNING:</strong> with the default -mt and -ms, the simulation will run until you 
+<a href="http://en.wikipedia.org/wiki/Kill_(command)" target="_blank">kill</a> it.
+</p>
+<p>
+Lambda (-la) is essentially the strength of the constraint imposed on the scalars to keep their norm = 1. 
+Ideally, it should be infinite. In practice, larger -la requires shorter time steps (-dt) to keep the 
+jitters around the constraint surface from diverging, so there is a tradeoff between constraint quality and
+runtime. The default value (1000) seems to be a good compromise for many cases of interest.
+</p>
+<p>
+Epsilon (-eo) is essentially the largest acceptable relative change in any field value at any lattice site
+between successive iterations of the non-linear solver at the core of the program's Störmer-Verlet integrator.
+If this value is exceeded at any lattice site, the solver goes through another iteration for all lattice sites.
+This continues until there is convergence or the maximum number of allowed iterations (-mi) is exceeded. In the 
+latter case, cascading divergences are likely to ensue, along with rapid deviations from energy conservation,
+and the simulation can no longer be trusted. Increasing -mi may help in some cases, but usually only a smaller
+time step will.
+</p>
+<p>
+The -eo and -mi arguments are only recognized and used when the program is compiled with the default Störmer-Verlet 
+integrator. Euler and fourth order Runge-Kutta integrators are also implemented in the source code, and the program 
+can be compiled to use those instead. Euler integration should not be considered for production runs, but may be
+useful for pedagogical and testing purposes. Runge-Kutta integration might be competitive with Störmer-Verlet in
+some cases.
+</p>
+
+<h3>Examples</h3>
+<p>
+<dl>
+   <dt class="example">evolve_1d</dt>
+      <dd class="example">Use the defaults for all argument values. <strong>WARNING:</strong> This will cause the program 
+                          to run until you <a href="http://en.wikipedia.org/wiki/Kill_(command)" target="_blank">kill</a> it.</dd>
+   <dt class="example">evolve_1d -if two_cells -of evolved_two_cells</dt>
+      <dd class="example">Read initial configuration from file "two_cells.vtk", write snapshots to files 
+                          named "evolved_two_cells_N.vtk", where N is the simulation step number. Again, run until killed.</dd>
+   <dt class="example">evolve_1d -mt 32 -sp 0.2 -rp 0.1</dt>
+      <dd class="example">Run the simulation for 32 lattice time units, saving snapshot files every 0.2
+                          and writing a report line to standard output every 0.1.</dd>
+</dl>
+</p>
+
+<h3>See also</h3>
+<p>
+The output from evolve_1d is usually input for <a href="analyze_1d.html">analyze_1d</a>.
+</p>
+<p>
+3D counterpart: <a href="evolve.html">evolve</a>.
+To evolve the fields on the FRW metric reduced to 1+1D, use <a href="evolve_frw_1d.html">evolve_frw_1d</a>.
+</p>
+</body>
+</html>

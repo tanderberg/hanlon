@@ -1,0 +1,1 @@
+g++ -I ../core -Wall -fopenmp -O3 p2c.cpp -lm -o ../../bin/p2c
