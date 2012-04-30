@@ -2,7 +2,7 @@ HaNLON is a package of C++ libraries and programs used to simulate the dynamics 
 
 You've been warned. 
 
-HaNLON is of course named after the [eponymous razor](http://en.wikipedia.org/wiki/Hanlon's_razor), but for acronym addicts, "HaNLON" expands to Hamiltonian Non-Linear Open Numerics.
+HaNLON is of course named after the eponymous razor (http://en.wikipedia.org/wiki/Hanlon's_razor), but for acronym addicts, "HaNLON" expands to Hamiltonian Non-Linear Open Numerics.
 
 HaNLON's core components are lattice and stencil objects. Specialized programs built on this common core are used to seed initial field configurations, relax and optimize them, convert them from polar to Cartesian coordinates, evolve them in time, and analyze the results. Field data is passed between the different programs using legacy ASCII VTK format files for portability, ease of inspection (any text editor capable of handling large text files will do) and visualization (using e.g. ParaView or VisIt).
  
