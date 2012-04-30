@@ -1,0 +1,189 @@
+html { overflow:scroll;
+overflow-x:hidden;
+overflow-y: scroll;
+}
+
+body { background-color: white;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 12px;
+color: black;
+background-image: url("images/sn1006.png"); 
+background-attachment: fixed;
+background-position: left top;
+background-repeat: no-repeat;
+background-size: 170px 100%;
+}
+
+a:hover { font-family:Verdana, Arial, Helvetica, sans-serif;
+color:black;
+background-color: white}
+
+h1 { font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:36px;
+}
+
+h2 { font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:30px;
+}
+
+h3 { font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:24px;
+}
+
+h4 { font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:16px;
+text-align: center;
+}
+
+h5 { font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size: 14px;
+margin-bottom: 0px;
+}
+
+li { padding-bottom: 14px; 
+}
+
+figure { padding-bottom: 14px;
+overflow: hidden;
+}
+
+.crop { height: 370px;
+overflow: hidden;
+text-align: center;
+}
+
+.rfig {
+margin-top:-48px;
+margin-bottom:-20px;
+width: 400px;
+}
+
+.croppy{ height: 280px;
+overflow: hidden;
+text-align: center;
+}
+
+.pyfig {
+margin-top:-30px;
+margin-bottom:-30px;
+width: 400px;
+}
+
+figcaption { padding-top: 14px;
+text-align: center;
+}
+
+#leftcontent { position: fixed;
+left:0px;
+top:0px;
+width:180px;
+background:white;
+border:0px solid white;
+}
+
+#centercontent { top:77px;
+background:white;
+margin-left:181px;
+margin-right:181px;
+border:10px solid white;
+line-height: 175%;
+}
+
+#rightcontent { position: fixed;
+right:0px;
+top:0px;
+width:180px;
+background:white;
+border:0px solid white;
+}
+
+#banner { background:white;
+height:50px;
+margin-left:171px;
+margin-right:171px;
+border-top:0 solid white;
+border-right:0 solid white;
+border-left:0 solid white;
+}
+
+.center { display: block;
+margin-left: auto;
+margin-right: auto;
+}
+
+.fixedsize { width: 720px;
+}
+
+.youtubesize { width: 720px;
+height: 396px;
+}
+
+.buttons a { color: white;
+border: 1px solid;
+background-color: black;
+padding: 2px;
+padding-left: 4px;
+font: 12px Arial, sans-serif;
+font-weight: bold;
+text-decoration: none;
+border-color: white;
+display: block;
+margin: 0px;
+width: 100%;
+text-align: left;
+}
+
+.buttons a:hover { border: 1px solid;
+padding-left: 5px;
+padding-top: 3px;
+padding-bottom: 1px;
+padding-right: 1px;
+background-color: gray;
+border-color: black;
+color: white;
+text-decoration: none;
+}
+
+.buttons a:active { border: 1px solid;
+padding-left: 5px;
+padding-top: 3px;
+padding-bottom: 1px;
+padding-right: 1px;
+background-color: white;
+border-color: white;
+color: black;
+text-decoration: none;
+}
+
+dl.folders
+{
+}
+
+.folders dt
+{
+	margin: 0;
+    padding: 0 0 0 25px;
+	font-weight: bold;
+    background: url("images/folder.png") no-repeat;
+}
+
+.folders dd
+{
+	margin: 0;
+    padding: 0 0 0 25px;
+}
+
+.console {
+  font-family: font-family: Terminal, Monospace, Courier;
+  color: #000000;
+  line-height: 125%;
+  background: whiteSmoke;
+  border: 1px solid #BBB;
+  padding: 10px;
+  width: 99%;
+}
+
+.user {
+   color: #ff0000;
+   font-weight: bold;
+}

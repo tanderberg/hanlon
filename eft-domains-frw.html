@@ -1,0 +1,377 @@
+<p>
+This simulation started out as a test run, so initial conditions were chosen to be interesting rather 
+than to conform with any particular cosmological model (a scenario to which this simulation might be 
+directly applicable is a late inflationary event). The same static field configuration seeded from
+10 Voronoi cells was used as in the previous examples on Minkowski spacetime (with ${\vec A} \to a {\vec A}$ 
+in order not to spoil energy minimization), the expansion rate was set to $H = 3 \cdot 10^4\thinspace km/s/Mpc$, 
+and the fraction of total energy density contributed by the simulated fields was pushed to the smallest power 
+of ten which the integrator could handle, $\rho = 10^{-35}$. The rationale for the latter choice is that 
+smaller $\rho$ implies larger scale factor $a$, and we are interested in cosmological scales.
+</p>
+<p>
+Working back from critical density at the chosen $H$, $\rho = 10^{-35}$ implies an initial scale factor 
+$a \simeq 2.1 \cdot 10^{40}$, which translates to $1.8 \cdot 10^6$ light years per lattice unit. Energy 
+density was split equally between matter and radiation (negligible contribution from the simulated fields 
+aside). This constitutes a departure from standard cosmology, where matter/radiation equality occurred at 
+redshift $z \simeq 3200$, roughly $57 \cdot 10^3$ years after the bang. In that context, any correlated 
+domains would therefore start out at least a couple of orders of magnitude smaller than a single lattice 
+unit. In other words, the diamater of the initial domains used in this simulation is roughly $10^3$ times 
+larger than what might be expected in standard cosmology. Temperature might also still be too high at the 
+start of the simulation for $\cal L$ to apply unmodified. A convenient line of demarcation is recombination, 
+which occurred at $z \simeq 1100$ and a temperature $\simeq 4000\thinspace K \simeq 0.3\thinspace eV$, 
+roughly a factor 3 below matter/radiation equality.
+</p>
+<p>
+Note that the scale factor $a$ affects space and conformal time equally: making it 1000 times smaller would 
+also make time steps 1000 times shorter. Even with the chosen $a$ and initial $\Delta_a / a = 10^{-5}$ it 
+took 1 191 255 iterations to reach $a \simeq 6.4 \cdot 10^{41}$, a roughly 30-fold expansion covering 
+one third of the current age of the universe:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-frw/a.png" class="center rfig">
+  <figcaption>Evolution of scale factor $a(t)$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-frw/rho.png" class="center rfig">
+  <figcaption>Evolution of energy densities.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+In wall clock terms, this took almost three months of uninterrupted running (terminated by a blackout). It 
+seems safe to say that the point of reason was crossed somewhere along this line.
+</p>
+<p>
+Still, with some data in hand, let's see what we can learn from it. In the following graphs, time is 
+shown as $\times 10^4$ iterations. Iterations are proportional to conformal time, so real time is 
+accelerating (one pixel at the right end of the time axis is worth more than 30 pixels at the left end):
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-frw/n_common.png" class="center rfig">
+  <figcaption>Evolution of average $n_a = |\theta_a| / |{\vec \theta}|$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-frw/T_common.png" class="center rfig">
+  <figcaption>Evolution of average $\Theta_a^2$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-frw/m_common.png" class="center rfig">
+  <figcaption>Evolution of average photon mass eigenvalues.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+As usual, $\vec \theta$ is driven to $\theta_1 = \theta_2 = 0$ (as in the graphs, 
+conformal time is used in the animations, so physical time is accelerating):
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/G3apeiLKRfs?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta / |\vec \theta|$. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/MAUalygZSMo?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$ (scatter plot). Color encodes total (simulated) energy density at each dot's spatial position.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+But there is a notable deviation from previous simulations. After about $10^5$ iterations, the electric 
+field's contribution to total (field simulation) energy density starts climbing and never looks back:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-frw/rho_comparison.png" class="center rfig">
+  <figcaption>Evolution of contributions to total (field simulation) energy.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+To compare with the Minkowski case, we can exploit the scale invariance of the latter to set its $a$ 
+equal to the starting value for the FRW case. Total simulated time is then $\propto a$ for Minkowski, 
+$\propto \int d\eta\thinspace a(\eta)$ for FRW. At $10^5$ iterations, the FRW scale factor is 
+$a \simeq 4.4 \cdot 10^{40}$, 2.1 times larger than at the start. The integral over $a(\eta)$ contributes 
+a factor $\simeq (2.1 + 1)/2 \simeq 1.5$, so the equivalent elapsed time in the Minkowski case is at roughly 
+$1.5 \cdot 10^5$ iterations. The Minkowski simulation then goes on for $10^5$ more iterations with electric 
+field energy remaining in a steadily declining trend. Evidently, the FRW simulation is doing something 
+qualitatively different. 
+</p>
+<p>
+Physically, the prime suspect is opposite charges being pulled apart by metric expansion. Superimposed
+on the overall trend, you can see the same back-and-forth between electric and magnetic fields as in the
+Minkowski case, indicating the presence of plasma oscillations. But on an expanding background, such 
+oscillations are biased: maximum separation between charges gets an extra push, pumping up $\vec E$, while 
+maximum velocity is reduced, damping $\vec B$.
+</p>
+<p>
+This difference is clearly visible in the animations (again, conformal time is used, so physical time is 
+accelerating):
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/Ig86IArpUQk?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/EwOo22a8eyw?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec \theta$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/bDomFaVoS1w?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec B$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/El-VwMKnaog?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec E$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/JfEWWi3uXRg?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Cross term energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/16B-rInrCJ8?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Average high photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/SvLhcxdGu8U?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Average middle photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/-YLNhBrbMMc?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Average low photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Note the emergence of stable structures about 1/4 into the simulation, at $3 \cdot 10^5$ iterations. The
+scale factor is then $a \simeq 1.1 \cdot 10^{41}$, 5.2 times larger than at the start. The time factor
+contributed by the sum over $a(\eta)$ is now $\simeq (5.2 + 1)/2 \simeq 3.1$, so the equivalent point in 
+the Minkowski case would be roughly $9 \cdot 10^5$ iterations, well beyond the end of the actual simulation.
+Since the growth of the electric field contribution to energy starts much earlier and lacks a counterpart
+in the Minkowski case, there is no particular reason to expect this kind of stable configurations to
+emerge there. To actually check this on equivalent hardware would take 2-3 months of wall time.
+</p>
+<p>
+There is reason for caution: the integrator is working near the limit of its stable range, and at the end 
+of the simulation, $\langle\nabla \cdot {\vec E}\rangle \sim -3.7\cdot 10^{-60}$ while 
+$\langle q \rangle \sim 1.2 \cdot 10^{-89}$, so charge conservation seems to be respected significantly 
+better than Gauss' law. We may be looking at a numerical artifact caused by the combination of slowing 
+dynamics and growing scale factor, $a \sim 6.4 \cdot 10^{41}$ at the end of the simulation. On the other 
+hand, it is encouraging that the plasma oscillation pattern seen in the Minkowski case is reproduced, and 
+that it suggests a physical mechanism for the observed behavior.
+</p>
+<p>
+A closer look at the final configurations:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/rho_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/rho_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/ItmxPJ_uivk?rel=0&loop=1&playlist=ItmxPJ_uivk" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>Energy density at end of simulation.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/rho_theta_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/rho_theta_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/DfuINtVuZfM?rel=0&loop=1&playlist=DfuINtVuZfM" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>$\vec \theta$ energy density at end of simulation.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/rho_B_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/rho_B_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/sWwz5p7oJwk?rel=0&loop=1&playlist=sWwz5p7oJwk" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>$\vec B$ energy density at end of simulation.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/rho_E_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/rho_E_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/mqSplu-xTX0?rel=0&loop=1&playlist=mqSplu-xTX0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>$\vec E$ energy density at end of simulation.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/rho_E_contour_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/rho_E_contour_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/keBjJlMhqXk?rel=0&loop=1&playlist=keBjJlMhqXk" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>$\vec E$ energy density (contour) at end of simulation.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/rho_mixed_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/rho_mixed_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/mu0OEx1Ezew?rel=0&loop=1&playlist=mu0OEx1Ezew" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>Cross term energy density at end of simulation.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/m_hi_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/m_hi_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/iWPZVH7btaw?rel=0&loop=1&playlist=iWPZVH7btaw" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>High photon mass eigenvalue at end of simulation.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/m_hi_contour_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/m_hi_contour_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/Zfg96JY-nvM?rel=0&loop=1&playlist=Zfg96JY-nvM" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>High photon mass eigenvalue (contour) at end of simulation.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/m_lo_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/m_lo_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/NezT5O8aPJ8?rel=0&loop=1&playlist=NezT5O8aPJ8" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>Low photon mass eigenvalue at end of simulation.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+  <video class="center fixedsize" controls loop>
+    <source src="webm/eft-domains-frw/m_lo_contour_final.webm" type="video/webm" />
+    <source src="mp4/eft-domains-frw/m_lo_contour_final.mp4" type="video/mp4" />
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/RVlXCZJNhL8?rel=0&loop=1&playlist=RVlXCZJNhL8" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  </video>
+  <figcaption>Low photon mass eigenvalue (contour) at end of simulation.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+A foam-like structure is clearly visible, consisting of large "bubbles" where photon mass is low, separated 
+by domain boundaries where photon mass is higher. The overall mass scale is minuscule, however. Multiplying 
+the eigenvalues, $\sim 10^{-44}$ at the end of the simulation, by $\nu \simeq 246.3\thinspace GeV$ yields 
+$\sim 10^{-33}\thinspace eV$, far below current photon mass bounds. Scale dependence is $\propto 1/a$, so 
+even scaling down domain size by a factor 1000 makes no detectable difference (assuming of course that the
+dynamics remain unchanged under such rescaling).
+</p>
+<p>
+This means that photon deflection is negligible. Not so photon decay, however. This is the distribution of
+residual luminosities between each cell in the lattice and its 26 nearest neighbors,
+</p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-frw/distribution_luminosity_1190000.png" class="center rfig">
+  <figcaption>Nearest neighbor residual luminosity distribution at end of simulation.</figcaption>
+  </div>
+</figure>
+<p>
+and this is what you get if you shoot a million straight rays of length 31.5 in random directions from 
+$x = y = z = 31.5$ (all in lattice units) and update their residual luminosity as they cross into new cells:
+</p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-frw/distribution_ray_luminosity_1190000.png" class="center rfig">
+  <figcaption>Residual luminosity distribution on (or from) sphere with radius 31.5 (lattice units).</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="croppy">
+  <img src="images/eft-domains-frw/raw_random_mollweide.png" class="center pyfig">
+  <figcaption>Residual luminosity on (or from) sphere with radius 31.5 (lattice units), 
+              <a href="http://en.wikipedia.org/wiki/Mollweide_projection" target="_blank">Mollweide projection</a>.</figcaption>
+  </div>
+</figure>
+<p>
+The corresponding physical distance is roughly $1.7 \cdot 10^9$ light years, which is certainly cosmological, 
+but keep in mind that this simulation uses initial conditions which are questionable at best (domains start 
+out 1000 times larger than we have a right to expect) and ends at only one third of the current age of the 
+universe.
+</p>

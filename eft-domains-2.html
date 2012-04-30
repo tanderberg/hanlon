@@ -1,0 +1,222 @@
+<p>
+The previous simulation still leaves room for a reasonable doubt: the initial configuration is not
+isotropic, even in a statistical sense. There is a preferred spatial axis and a few dominant $\vec \theta$
+and $\vec A$ directions. Could this explain the preference for the $\theta_3$ component?
+</p>
+<p>
+To rule this out, let's try a generic 3D initial configuration:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-2/theta.0000.png" class="center fixedsize">
+  <figcaption>Initial $\vec \theta$ configuration. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-2/B.0000.png" class="center fixedsize">
+  <figcaption>Initial $\vec B$ configuration. Color encodes $|\vec B|$ (red is larger).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-2/rho.0000.png" class="center fixedsize">
+  <figcaption>Initial energy density.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The biggest difference from the previous case is a much smaller domain boundary bump in the initial energy distribution:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/distribution_rho_0.png" class="center rfig">
+  <figcaption>Initial energy distribution (kernel density estimate, Gaussian smoothing).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The simulation was again run for 64 lattice time units with a time step $10^{-3}$. It took six days to complete.
+</p>
+<p>
+The initial wavefronts again dissolve quickly:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/ytIDPBZrCS0?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/3lP6ayzOv5E?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec \theta$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/7PgsGVqdkgg?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec B$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/tbvAdcz2FGY?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec E$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/_WEX0LfTSoI?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Cross term energy density.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+As before, the total energy distribution at the end of the simulation does not look quite thermal, but the distributions
+of the individual contributions do, with higher temperatures for the electromagnetic and cross terms:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/distribution_rho_64000.png" class="center rfig">
+  <figcaption>Total energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/distribution_rho_theta_64000.png" class="center rfig">
+  <figcaption>$\vec \theta$ energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/distribution_rho_B_64000.png" class="center rfig">
+  <figcaption>$\vec B$ energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/distribution_rho_E_64000.png" class="center rfig">
+  <figcaption>$\vec E$ energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/distribution_rho_mixed_64000.png" class="center rfig">
+  <figcaption>Cross term energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+</p>
+The magnetic field energy of the initial configuration is again primarily converted to electromagnetic waves, while 
+little energy is transferred to $\vec \theta$:
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/rho_comparison.png" class="center rfig">
+  <figcaption>Evolution of contributions to total energy.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Photon masses again decline after the initial jump:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/m_common.png" class="center rfig">
+  <figcaption>Evolution of average photon mass eigenvalues.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/3hFC2MoS4K8?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>High photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/gnp0550YIKA?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Middle photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/lJGsqcaIUrQ?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Low photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Also in this case, the dynamics start driving $\vec \theta$ to $\theta_3$ almost immediately:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/n_common.png" class="center rfig">
+  <figcaption>Evolution of average $n_a = |\theta_a| / |{\vec \theta}|$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-2/T_common.png" class="center rfig">
+  <figcaption>Evolution of average $\Theta_a^2$.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Watch $\vec \theta$ line up:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/ThrtAWVKUVc?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/n2HJDTFW-i0?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$ (scatter plot). Color encodes total energy density at each dot's spatial position.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Note that the $\vec \theta$ vectors do not all point the same way. They are clustered around the $\theta_3$ axis,
+but on both sides of the origin and with a small number of fast-moving outliers on the enclosing sphere.
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-2/theta_final.0009.png" class="center fixedsize">
+  <figcaption>$\vec \theta$ configuration at t = 64. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+</p>

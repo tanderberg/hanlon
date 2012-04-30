@@ -1,0 +1,469 @@
+<p>
+In both previous simulations, total energy was dominated by the electromagnetic field 
+(roughly an order of magnitude larger than $\vec \theta$ energy). This raises the question 
+whether the observed decoupling of $\vec \theta$ depends on this dominance. It is not 
+hard to imagine that without a strong, disordered radiation field overpowering NLSM 
+dynamics, the outcome would be different.
+</p>
+<p>
+Another question left open by the previous simulations is the ultimate fate of the 
+effective photon mass. Does it fall all the way to zero, or does it level off at som 
+finite value? There are also hints of long-lived structures in those simulations. What 
+happens to those?
+</p>
+<p>
+Finding the answers to these questions requires running longer simulations with different 
+ratios of electromagnetic to $\vec \theta$ energy. For easier comparison, it is convenient 
+to use the same initial configuration and just scale the $\vec B$ field without minimizing 
+energy density all over again (as that would change shapes and values of both $\vec \theta$
+and $\vec B$). This increases the deviation from static equilibrium and is therefore likely 
+to make the initial evolution somewhat faster, so strictly speaking it yields a lower bound 
+on the time required to reach a given degree of homogenization, $\vec \theta$ alignment or 
+similar statistical measure.
+</p>
+<p>
+The starting points for all simulations presented on this page were obtained by scaling
+$\vec B$ in the following optimized static configuration, seeded from 10 Voronoi cells:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-3/theta.0000.png" class="center fixedsize">
+  <figcaption>Initial $\vec \theta$ configuration. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-3/B.0000.png" class="center fixedsize">
+  <figcaption>Initial $\vec B$ configuration. Color encodes $|\vec B|$ (red is larger).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-3/rho.0000.png" class="center fixedsize">
+  <figcaption>Initial energy density.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+This configuration is again dominated by $|\vec B|$ energy, with a distribution sharply peaked near 0:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/distribution_rho_0.png" class="center rfig">
+  <figcaption>Initial energy distribution (kernel density estimate, Gaussian smoothing).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Evolving it for 256 lattice time units (twelve days of wall time with the usual iteration step of $10^{-3}$ 
+lattice time units) produces the following energy redistribution:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/rho_comparison.png" class="center rfig">
+  <figcaption>Evolution of contributions to total energy.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Even after such a long time, we are very far from equipartition of energy. Note how electric field energy 
+grows to exceed magnetic field energy. If electromagnetic energy were all radiation, this would not happen. 
+The excess must be due to coherent electric fields, which suggests the presence of electrically charged 
+configurations.
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/distribution_rho_256000.png" class="center rfig">
+  <figcaption>Total energy distribution at t = 256 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/distribution_rho_theta_256000.png" class="center rfig">
+  <figcaption>$\vec \theta$ energy distribution at t = 256 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/distribution_rho_B_256000.png" class="center rfig">
+  <figcaption>$\vec B$ energy distribution at t = 256 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/distribution_rho_E_256000.png" class="center rfig">
+  <figcaption>$\vec E$ energy distribution at t = 256 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/distribution_rho_mixed_256000.png" class="center rfig">
+  <figcaption>Cross term energy distribution at t = 256 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The following graphs suggest that equipartition may never be reached:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/n_common.png" class="center rfig">
+  <figcaption>Evolution of average $n_a = |\theta_a| / |{\vec \theta}|$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/T_common.png" class="center rfig">
+  <figcaption>Evolution of average $\Theta_a^2$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/m_common.png" class="center rfig">
+  <figcaption>Evolution of average photon mass eigenvalues.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+By $t = 256$, average $\theta_3 / |{\vec \theta}| \simeq 0.973$; average $\Theta_3^2 \simeq 0.998$. In other words,
+$\vec \theta$ is almost completely decoupled.
+</p>
+<p>
+This is what the time evolution looks like:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/NSfi56qcQDg?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/E43cegvaQww?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec \theta$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/SMJpnHKtMP8?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec B$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/Scz2yrc-d3s?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec E$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/tDF_3vU2eeY?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Cross term energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/OIvvdhT-liI?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>High photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/MLcn41GehGU?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Middle photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/JaQ0ZEwlZDo?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Low photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/4hWHlHq3aOQ?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/IWci8zCzKq0?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$ (scatter plot). Color encodes total energy density at each dot's spatial position.</figcaption>
+  </div>
+</figure>
+<p>
+Concentrating on the key graphs, this is what happens when the initial $\vec B$ is scaled by factors 0.23571 (for equal 
+energy in $\vec \theta$ and $\vec B$), 0.1, 0.01 and 0.001, respectively:
+</p>
+<h4>${\vec B} \to 0.23571 {\vec B}$</h4>
+<p>
+This simulation took thirteen days with the usual iteration step of $10^{-3}$ lattice time units. Note how the swings
+in $\vec B$ energy mirror those in $\vec E$ energy. This is what you would expect to see in the presence of 
+<a href="http://en.wikipedia.org/wiki/Plasma_oscillation" target="_blank">plasma oscillations</a>, i.e. oscillating
+average separation between charges of opposite sign. $\vec E$ energy peaks at the turning points, when the charges
+are momentarily standing still at maximum separation, while $\vec B$ energy peaks when they are crossing at maximum 
+speed. (Of course, in this case the charges are not carried by electrons and ions, but by $\vec \theta$.)
+</p>
+<p>
+Also note the small jump in $\vec \theta$ and total energy at $t \simeq 200$. Integration becomes harder as electromagnetic 
+dissipation of $\vec \theta$ configurations is reduced, but the symplectic algorithm manages to get back on track after minor 
+events like this.
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af023571/rho_comparison.png" class="center rfig">
+  <figcaption>Evolution of contributions to total energy.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af023571/n_common.png" class="center rfig">
+  <figcaption>Evolution of average $\vec n = {\vec \theta} / |{\vec \theta}|$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af023571/T_common.png" class="center rfig">
+  <figcaption>Evolution of average $\Theta_a^2$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af023571/m_common.png" class="center rfig">
+  <figcaption>Evolution of average photon mass eigenvalues.</figcaption>
+  </div>
+</figure>
+</p>
+<h4>${\vec B} \to 0.1 {\vec B}$</h4>
+<p>
+This simulation was faster, only eight days, presumably due to the absence of events like the one
+encountered by the previous one. Note how $\vec \theta$ energy quickly drops to the same level as
+magnetic field energy, with the difference going to cross term and electric field energy. Either
+excess magnetic or $\vec \theta$ energy seems to drive the formation of charged configurations.
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af01/rho_comparison.png" class="center rfig">
+  <figcaption>Evolution of contributions to total energy.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af01/n_common.png" class="center rfig">
+  <figcaption>Evolution of average $\vec n = {\vec \theta} / |{\vec \theta}|$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af01/T_common.png" class="center rfig">
+  <figcaption>Evolution of average $\Theta_a^2$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af01/m_common.png" class="center rfig">
+  <figcaption>Evolution of average photon mass eigenvalues.</figcaption>
+  </div>
+</figure>
+</p>
+<h4>${\vec B} \to 0.01 {\vec B}$</h4>
+<p>
+As the electromagnetic field is reduced further, the going gets tougher again. This simulation took almost 
+ten days.
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af001/rho_comparison.png" class="center rfig">
+  <figcaption>Evolution of contributions to total energy.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af001/n_common.png" class="center rfig">
+  <figcaption>Evolution of average $\vec n = {\vec \theta} / |{\vec \theta}|$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af001/T_common.png" class="center rfig">
+  <figcaption>Evolution of average $\Theta_a^2$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af001/m_common.png" class="center rfig">
+  <figcaption>Evolution of average photon mass eigenvalues.</figcaption>
+  </div>
+</figure>
+</p>
+<h4>${\vec B} \to 0.001 {\vec B}$</h4>
+<p>
+This is close to the limit for how much the electromagnetic field can be reduced without causing the 
+integration to diverge (with this particular set of initial conditions ). Several temporary deviations 
+from conservation of energy are visible. The simulation took eleven days.
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af0001/rho_comparison.png" class="center rfig">
+  <figcaption>Evolution of contributions to total energy.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af0001/n_common.png" class="center rfig">
+  <figcaption>Evolution of average $\vec n = {\vec \theta} / |{\vec \theta}|$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af0001/T_common.png" class="center rfig">
+  <figcaption>Evolution of average $\Theta_a^2$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-3/af0001/m_common.png" class="center rfig">
+  <figcaption>Evolution of average photon mass eigenvalues.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The anticlimactic conclusion is that even very weak electromagnetic fields drive $\vec \theta$ toward $\theta_3$ 
+and decoupling, just at a slower pace.
+</p>
+<p>
+This is what the slow dynamics of the last case look like (running at double speed relative to previous animations
+to prevent boredom):
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/3ezRil62iE8?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/3k4syciWbRo?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec \theta$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/Y0kw12Bs8Po?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec B$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/dHw9SjH7NMg?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>$\vec E$ energy density.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/J3xqKpcWLns?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Cross term energy density.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+These visualizations confirm that the long-lived structures which emerge 1/4 through the simulation are 
+primarily due to the electric and cross terms. They are also clearly visible in the high and middle 
+photon mass eigenvalues:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/070lmgrvt7g?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>High photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/zt6-xUAGivE?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Middle photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/gCdUxpjDDCM?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Low photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Watch $\vec \theta$ slow down as it lines up:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/DNA6xzgjBM0?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/I6G2_n3VENw?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$ (scatter plot). Color encodes total energy density at each dot's spatial position.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Note the offshoot along the $\theta_1$ axis which emerges halfway through the simulation, signaling the
+presence of electrically charged configurations.
+</p>

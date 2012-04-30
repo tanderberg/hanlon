@@ -1,0 +1,121 @@
+<p>
+The following simulation is an essentially 2-dimensional case, chosen for ease of visualization. The initial 
+configuration is a static mix of domains with two different values of $\vec \theta$, extending along one spatial 
+axis:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/nlsm-domains/theta.0000.png" class="center fixedsize">
+  <figcaption>Initial $\vec \theta$ configuration. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+$\vec A = 0$, so there are no electromagnetic fields. Energy density is visibly concentrated at the boundaries:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/nlsm-domains/rho.0000.png" class="center fixedsize">
+  <figcaption>Initial energy density.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Binning lattice sites by energy yields a distribution sharply peaked near zero (corresponding to the bulk of the domains),
+with a smaller bump for the boundaries:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/nlsm-domains/distribution_rho_0.png" class="center rfig">
+  <figcaption>Initial energy distribution (kernel density estimate, Gaussian smoothing).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The simulation runs for 64 lattice time units on a $64^3$ cube with periodic boundary conditions (this took 12 days on 
+a Core i7-2600k overclocked to 5.8 GHz, using a fixed time step of $10^{-4}$ lattice time units). It is best viewed in terms 
+of energy density:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/gKH7S1osBDk?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Energy density.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Halfway through the simulation, at 32 lattice time units, wavefronts start colliding with the replicas from neighboring 
+simulation cubes which are implied by the periodic boundary conditions. Extending the simulation into this "unphysical"
+regime is justified <i>a posteriori</i> by the observed loss of information about the initial conditions. The initial 
+wavefronts break up as space is filled with a disordered "smoke" of smaller waves, and the energy distribution at the 
+end of the simulation approaches the familiar $\Gamma(1.5, 1/\beta)$, i.e. 
+<a href="http://en.wikipedia.org/wiki/Maxwell%E2%80%93Boltzmann_distribution#Distribution_for_the_energy" target="_blank">Maxwell-Boltzmann</a>, 
+form:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/nlsm-domains/distribution_rho_640500.png" class="center rfig">
+  <figcaption>Energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The same simulation, viewed as $\vec \theta$:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/sUVGs4Vi_Pg?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/kC6pcCgRG28?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$ (scatter plot). Color encodes total energy density at each dot's spatial position.</figcaption>
+  </div>
+</figure>
+</p>
+$\vec \theta$ roughly maintains its initial orientation along $\theta_2$, and the average normalized $\vec \theta$ 
+components display no significant trend, as expected given the absence of a preferred direction:
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/nlsm-domains/n_common.png" class="center rfig">
+  <figcaption>Evolution of average $n_a = |\theta_a| / |{\vec \theta}|$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/nlsm-domains/T_common.png" class="center rfig">
+  <figcaption>Evolution of average $\Theta_a^2$.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Average photon mass eigenvalues, on the other hand, grow over time, consistent with an evolution toward shorter 
+$\vec \theta$ wavelengths:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/nlsm-domains/m_common.png" class="center rfig">
+  <figcaption>Evolution of average photon mass eigenvalues.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+If this trend were to carry over to the general case with $\vec A \neq 0$ we would have a big problem: the universe
+would become increasingly opaque as time goes by!
+</p>

@@ -1,0 +1,216 @@
+<p>
+This simulation shows what happens when there are also magnetic fields at the boundaries. 
+As in the NLSM case, the initial configuration is a static mix of domains with two different 
+values of $\vec \theta$, extending along one spatial axis:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-1/theta.0000.png" class="center fixedsize">
+  <figcaption>Initial $\vec \theta$ configuration. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+But now there are also magnetic fields at the domain boundaries:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-1/B.0000.png" class="center fixedsize">
+  <figcaption>Initial $\vec B$ configuration. Color encodes $|\vec B|$ (red is larger).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The NLSM case was obtained by energy minimization of the same random seed with the magnetic field set to 0. 
+The $\vec \theta$ domains are different, but not so much as might seem at first sight; the viewing angles 
+are different.
+</p>
+<p>
+Energy density is again concentrated at the boundaries:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+  <img src="images/eft-domains-1/rho.0000.png" class="center fixedsize">
+  <figcaption>Initial energy density.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The energy distribution features a sharper domain boundary bump due to the additional magnetic field contribution:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/distribution_rho_0.png" class="center rfig">
+  <figcaption>Initial energy distribution (kernel density estimate, Gaussian smoothing).</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Energy spreads out visibly faster than in the NLSM case, quickly dissolving the initial wavefronts:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/a0rXWCl3FFA?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Energy density.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+Incidentally, the faster dispersion allows the use of a longer time step ($10^{-3}$ lattice time units, for
+five days of simulation time).
+</p> 
+<p>
+At first sight, the final energy distribution does not quite look thermal:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/distribution_rho_64000.png" class="center rfig">
+  <figcaption>Total energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The distributions for the separate components do, however. They just have different temperatures:
+</p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/distribution_rho_theta_64000.png" class="center rfig">
+  <figcaption>$\vec \theta$ energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/distribution_rho_B_64000.png" class="center rfig">
+  <figcaption>$\vec B$ energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/distribution_rho_E_64000.png" class="center rfig">
+  <figcaption>$\vec E$ energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/distribution_rho_mixed_64000.png" class="center rfig">
+  <figcaption>Cross term energy distribution at t = 64 (kernel density estimate, Gaussian smoothing) and best $\Gamma(1.5, 1/\beta)$ fit.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+This happens partly because the simulation starts very far from equilibrium. Most energy is initially in $\vec B$. When the 
+clock starts ticking, the electric component quickly builds up as electromagnetic waves start propagating, while little energy 
+is transferred to $\vec \theta$:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/rho_comparison.png" class="center rfig">
+  <figcaption>Evolution of contributions to total energy.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+This is consistent with decoupling.
+</p>
+<p> The take-home result of this simulation is the evolution of average photon mass eigenvalues:
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/m_common.png" class="center rfig">
+  <figcaption>Evolution of average photon mass eigenvalues.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+After the initial jump as $\vec \theta$ wavefronts accelerate from zero speed, effective photon masses start declining.
+</p>
+<p>
+Watch photon mass eigenvalues evolve:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/eoroEcqOp1k?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>High photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/Dy-xp6RvuRw?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Middle photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/BnnlamrWe_4?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Low photon mass eigenvalue.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+</p>
+<p>
+Why does this happen? Essentially because electromagnetic waves kick $\theta$ around proportionally to its coupling to 
+photons, which vanishes for spatially constant $\theta_1 = \theta_2 = 0$ (because $\vec \Theta$ then goes to constant 
+$\Theta_3 = 1$ for any value of $\theta_3$, and the photon mass terms are derivatives in $\vec \Theta$). The EFT
+dynamics therefore drives $\theta$ to $\theta_3$ (note that this starts well before 32 lattice time units, so there is 
+no question about it being a real physical effect):
+</p>
+<p>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/n_common.png" class="center rfig">
+  <figcaption>Evolution of average $n_a = |\theta_a| / |{\vec \theta}|$.</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="crop">
+  <img src="images/eft-domains-1/T_common.png" class="center rfig">
+  <figcaption>Evolution of average $\Theta_a^2$.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+In contrast to the plain NLSM case, the universe now becomes increasingly transparent as time goes by!
+</p>
+<p>
+Watch $\vec \theta$ line up:
+</p>
+<p>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/ICCjOEBRXwg?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$. Color encodes $|\vec \theta|$ (red is larger).</figcaption>
+  </div>
+</figure>
+<figure>
+  <div class="center fixedsize">
+    <iframe class="center youtubesize" src="http://www.youtube.com/embed/mooEuqppsy4?rel=0" frameborder="0" allowfullscreen>
+      <div><strong>Your browser does not support <a href="http://en.wikipedia.org/wiki/HTML_element#Frames" target="_blank">iframes</a>.</strong></div>
+    </iframe>
+  <figcaption>Evolution of $\vec \theta$ (scatter plot). Color encodes total energy density at each dot's spatial position.</figcaption>
+  </div>
+</figure>
+</p>
+<p>
+The line $\theta_1 = \theta_2 = 0$ seems to be an 
+<a href="http://en.wikipedia.org/wiki/Attractor" target="_blank">attractor</a>!
+</p>

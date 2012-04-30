@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+  <head>
+    <title>HaNLON</title>
+    <link rel="stylesheet" type="text/css" href="threecol.css">
+    <script type="text/x-mathjax-config">
+       MathJax.Hub.Config({
+          extensions: ["tex2jax.js"],
+          jax: ["input/TeX","output/HTML-CSS"],
+          tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+       });
+    </script>
+    <!--- <script type="text/javascript" src="js/mathjax/MathJax.js"></script --->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+    <!---script type="text/javascript" src="js/jquery-1.7.2.min.js"></script --->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+  
+    <noscript>
+       <div style="color:#CC0000; text-align:center">
+       <strong>Warning: JavaScript is required to view these pages.<br />
+       If your browser supports JavaScript, make sure it is enabled.</strong>
+       </div>
+       <hr>
+    </noscript>
+
+    <div id="leftcontent">
+      <!--<p align="center"><a href="http://heritage.stsci.edu/2000/06/big.html" target="_blank"><img checked="true" alt="Keyhole Nebula" src="images/finger.jpg" style="border-style: none;"/></a></p>-->
+    </div>
+    
+    <div id="centercontent">
+    </div>
+
+    <div id="rightcontent">
+        <div class="buttons">
+           <a href="#hanlon" id="hanlon">About HaNLON</a>
+           <a href="#nlsm-domains" id="nlsm-domains">Sample run: NLSM</a>
+           <a href="#eft-domains-1" id="eft-domains-1">Sample run: EFT (I)</a>
+           <a href="#eft-domains-2" id="eft-domains-2">Sample run: EFT (II)</a>
+           <a href="#eft-domains-3" id="eft-domains-3">Sample run: EFT (III)</a>
+           <a href="#eft-domains-frw" id="eft-domains-frw">Sample run: EFT on FRW</a>
+        </div>
+    </div>
+
+    <script>
+       sb = null;
+
+       function loadMath(file) { $("#centercontent").load(file, function(){ MathJax.Hub.Queue(function () { $(document).scrollTop(0) });
+                                                                            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+                                                                            MathJax.Hub.Queue(function () { $(document).scrollTop(0) }); } ) };
+    
+       function select(button) { if (null != sb)
+                                 {
+                                    $(sb).css("background-color", '');
+                                    $(sb).css("color", '');
+                                 }
+                                 
+                                 $(button).css("background-color", $(document.body).css("background-color")); 
+                                 $(button).css("color", $(document.body).css("color"));
+                                 
+                                 sb = button; 
+                               };
+                               
+       function onReady() { if (0 == window.location.hash.length)
+                            {  // No hash tag, load default page
+                               $("#hanlon.html").click();
+                            }
+                            else
+                            {  // Load page identified by hash tag
+                               $(window.location.hash).click();
+                            }
+                          }
+                               
+       $("#hanlon").click(function(){ loadMath("hanlon.html"); select(this); } );
+       $("#nlsm-domains").click(function(){ loadMath("nlsm-domains.html"); select(this); } );
+       $("#eft-domains-1").click(function(){ loadMath("eft-domains-1.html"); select(this); } );
+       $("#eft-domains-2").click(function(){ loadMath("eft-domains-2.html"); select(this); } );
+       $("#eft-domains-3").click(function(){ loadMath("eft-domains-3.html"); select(this); } );
+       $("#eft-domains-frw").click(function(){ loadMath("eft-domains-frw.html"); select(this); } );
+       
+       $(document).ready( onReady() );
+    </script>
+
+  </body>
+</html>

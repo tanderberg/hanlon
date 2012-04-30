@@ -1,0 +1,376 @@
+<p>
+<a href="https://simplicial.net/hanlon/" target="_blank">HaNLON</a> is a package of
+<a href="http://en.wikipedia.org/wiki/C%2B%2B" target="_blank">C++</a> libraries and 
+programs used to simulate the dynamics of electroweak interactions in the <i>really</i> 
+low energy limit. For the physics, see <a href="papers/something.pdf" target="_blank">this paper</a>
+and references therein. It's a straightforward application of 
+<a href="http://en.wikipedia.org/wiki/Effective_field_theory" target="_blank">effective field theory</a> to the 
+<a href="http://en.wikipedia.org/wiki/Standard_Model#Electroweak_sector" target="_blank">standard model of electroweak interactions</a> 
+(the kind of thing you pick up in books like 
+<a href="http://books.google.com/books/about/The_quantum_theory_of_fields.html?id=3EcYKQEACAAJ" target="_blank">this</a>
+and <a href="http://books.google.com/books/about/Electroweak_Symmetry_Breaking.html?id=87PQ03EsiwIC" target="_blank">this</a>)
+so needless to say it's crackpot material which will get you banned from astro-ph, should anyone catch you with it. 
+<img src="images/rolleyes.gif">
+</p>
+You've been warned.
+</p>
+<p>
+HaNLON is of course named after the 
+<a href="http://en.wikipedia.org/wiki/Hanlon's_razor" target="_blank">eponymous razor</a>, but for acronym addicts, 
+"HaNLON" expands to Hamiltonian Non-Linear Open Numerics. <img src="images/coolwink.gif"> 
+</p>
+<p>
+HaNLON's core components are lattice and stencil objects. Specialized programs built on this 
+common core are used to seed initial field configurations, relax and optimize them, convert 
+them from polar to Cartesian coordinates, evolve them in time, and analyze the results. Field 
+data is passed between the different programs using 
+<a href="http://www.vtk.org/Wiki/VTK/Writing_VTK_files_using_python#.22legacy.22" target="_blank">legacy ASCII VTK</a>
+format files for portability, ease of inspection (any text editor capable of handling large 
+text files will do) and visualization (using e.g. <a href="http://www.paraview.org/" target="_blank">ParaView</a> 
+or <a href="https://wci.llnl.gov/codes/visit/" target="_blank">VisIt</a>).
+</p>
+<p>
+All HaNLON programs run from the command line and should require little effort to build and 
+use on common computing platforms (*nix, Windows, Mac). Build scripts for the standard 
+GNU/Linux C++ toolchain are included in the source distribution.
+</p>
+<h4>Setup</h4>
+<p>
+To get HaNLON, <a href="https://simplicial.net/hanlon/downloads" target="_blank">download</a>
+the distribution archive and unpack it to a new directory.
+</p>
+For definiteness, I will assume from now on that you are on a Linux system 
+(<a href="http://www.opensuse.org/en/" target="_blank">openSUSE</a> is a great choice) and that you 
+unpacked the archive to <strong>hanlon</strong> in your home directory. I will further assume that you know your 
+way around the 
+<a href="http://www.tuxfiles.org/linuxhelp/cli.html" target="_blank">Linux command line</a> and are
+capable of working around minor problems like needing to 
+<a href="http://en.wikipedia.org/wiki/Chmod#Command_line_examples" target="_blank">set execution permissions</a>. 
+So,
+</p>
+<pre class="console">
+~> <span class="user">ls hanlon</span>
+<strong>bin</strong>  <strong>docs</strong>  license.txt  <strong>source</strong>
+~> 
+</pre>
+<p>
+Under <strong>source</strong>, you should find the following directories:
+<dl class="folders">
+   <dt>seed</dt>
+      <dd>Creates random $\vec \theta$ and $\vec A$ configurations.</dd>
+   <dt>relax</dt>
+      <dd>Reduces local energy density by selective low pass filtering.</dd>
+   <dt>optimize</dt>
+      <dd>Minimizes local energy density.</dd>
+   <dt>p2c</dt>
+      <dd>Converts static configurations from polar ($\theta_i$) to Cartesian ($\phi_i$) field coordinates.</dd>
+   <dt>evolve</dt>
+      <dd>Computes the time evolution of $\phi_i$ and $\vec A$ in Minkowski spacetime.</a>
+   <dt>evolve_frw</dt>
+      <dd>Computes the time evolution of $\phi_i$ and $\vec A$ on the FRW metric.</a>
+   <dt>analyze</dt>
+      <dd>Analyzes field configurations produced by <strong>evolve</strong>.</dd>
+   <dt>analyze_frw</dt>
+      <dd>Analyzes field configurations produced by <strong>evolve_frw</strong>.</dd>
+   <dt>core</dt>
+      <dd>Common code used throughout HaNLON.</dd>
+</dl>
+Each directory except <strong>core</strong> also has a similarly named "_1d" counterpart: <strong>seed_1d</strong>, 
+<strong>relax_1d</strong> and so on. These contain equivalent implementations in 1+1 spacetime (one time and 
+one spatial dimension). They were originally written to simulate the evolution of ideal (infinite, 
+plane) domain boundary configurations, but they are also very convenient for familiarizing yourself 
+with the code and its use. The discretized equations are much simpler in 1D, so these programs are 
+shorter, compile and run faster, and produce smaller data files than their 3D equivalents.
+</p>
+<p>
+The <strong>source</strong> directory also contains two shell scripts, "mk_1d" and "mk", which you can use to 
+build all 1D and 3D executables with GNU C++ (on a Linux system with all required development packages
+installed). They simply launch the "mk" script in each program's subdirectory, which creates the 
+corresponding binary in <strong>hanlon/bin</strong>. Let's build all 1D programs:
+</p>
+<pre class="console">
+~> <span class="user">cd hanlon/source</span>
+~/hanlon/source> <span class="user">mk_1d</span>
+Building seed_1d
+Building relax_1d
+Building optimize_1d
+Building p2c_1d
+Building evolve_1d
+Building evolve_frw_1d
+Building analyze_1d
+Building analyze_frw_1d
+~/hanlon/source> <span class="user">ls ../bin</span>
+analyze_frw_1d  optimize_1d  seed_1d  analyze_1d  evolve_frw_1d
+relax_1d        evolve_1d    p2c_1d 
+~/hanlon/source> 
+</pre>
+<p>
+This should only take a few seconds. Building the 3D programs takes longer, especially if you decide to use 
+Intel's <a href="http://software.intel.com/en-us/articles/intel-compilers/" target="_blank">optimizing C++ compiler</a> 
+(recommended for Intel CPUs).
+</p>
+<h4>Runthrough</h4>
+<h5><a href="http://en.wiktionary.org/wiki/TLDR" target="_blank">tl;dr</a></h5>
+<pre class="console">
+~/hanlon/source> <span class="user">cd ..</span>
+~/hanlon> <span class="user">mkdir test_1d</span>
+~/hanlon> <span class="user">cd test_1d</span>
+~/hanlon/test_1d> <span class="user">../bin/seed_1d > log_seed_1d.txt</span>
+~/hanlon/test_1d> <span class="user">../bin/relax_1d > log_relax_1d.txt</span>
+~/hanlon/test_1d> <span class="user">../bin/optimize_1d > log_optimize_1d.txt</span>
+~/hanlon/test_1d> <span class="user">../bin/p2c_1d > log_p2c_1d.txt</span>
+~/hanlon/test_1d> <span class="user">../bin/evolve_1d -rp 0.1 -mt 2 > log_evolve_1d.txt</span>
+~/hanlon/test_1d> <span class="user">for f in evolved_*.vtk; do ../bin/analyze_1d -if ${f%\.*} >> log_analyze_1d.txt; done</span>
+</pre>
+<p>
+Remove "_1d" everywhere for 3D equivalents. Look under <strong>hanlon/docs</strong> for details.
+</p>
+<h5>Long version</h5>
+<p>
+It is good housekeeping to store data and executables separately, so let's start by creating a new directory 
+for our data files:
+</p>
+<pre class="console">
+~/hanlon/source> <span class="user">cd ..</span>
+~/hanlon> <span class="user">mkdir test_1d</span>
+~/hanlon> <span class="user">cd test_1d</span>
+~/hanlon/test_1d> 
+</pre>
+<p>
+Now we need a seed configuration. All HaNLON programs use (more or less) reasonable default settings, so we could
+simply run seed_1d without arguments, but it is more instructive to look at the available options. To see those, 
+just present the program with a command line argument which it does not understand, like a lone question mark:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/seed_1d ?</span>
+Unrecognized command line argument: ?
+
+Supported options [defaults in square brackets]:
+
+Random seed (long integer):                           -rs [0]
+
+Filename for initial data output:                     -of ["initial"]
+Title of initial data file:                           -ot ["Initial"]
+
+Operating mode (0 = cells, 1 = pulses, 2 = periodic): -om [0]
+Number of lattice sites (2 to 8196):                  -ns [1024]
+Number of control points:                             -nc [10]
+Boundary width (lattice units):                       -bw [20]
+Initial A factor:                                     -af [1]
+Periods along x axis (mode 2):                        -nx [1]
+</pre>
+<p>
+For more information, look in the <strong>hanlon/docs</strong> directory, where you should find an html file for each 
+HaNLON program. If you are using <a href="http://www.kde.org/" target="_blank">KDE</a>, you can open the page 
+about seed_1d from the command line with kde-open:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">kde-open ../docs/seed_1d.html</span>
+~/hanlon/test_1d> 
+</pre>
+<p>
+Or you can be lazy like me and just click icons in your 
+<a href="http://www.kde.org/applications/system/dolphin/" target="_blank">favorite file manager</a>.
+</p>
+<p>
+Let's create a simple configuration consisting of just two cells separated by two interpolation 
+layers (not one; due to the periodic boundary conditions, the 1D lattice has the topology of a ring):
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/seed_1d -nc 2 -of two_cells</span>
+nSide: 1024
+Initializing random number generator.
+Generating initial data.
+Saving initial data to "two_cells.vtk".
+Done saving.
+~/hanlon/test_1d> <span class="user">ls</span>
+two_cells.vtk
+</pre>
+<p>
+You can inspect the file "two_cells.vtk" with any text editor.
+</p>
+<p>
+Once created, the initial configuration needs to be relaxed, so we ask relax_1d how it works:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/relax_1d ?</span>
+Unrecognized command line argument: ?
+
+Supported options [defaults in square brackets]:
+
+Filename for signal file:                -sf ["signal.txt"]
+Filename for initial data output:        -if ["initial"]
+Filename for relaxed data output:        -of ["relaxed"]
+
+Title of relaxed data file:              -ot ["Relaxed"]
+
+Number of sweeps between rho checks:     -ns [10]
+
+Relative rho tolerance:                  -rr [1e-06]
+Central weight step tolerance threshold: -wt [0.0001]
+Central weight step:                     -ws [0.01]
+</pre>
+<p>
+The defaults are fine except for the input filename (see relax_1d.html in <strong>hanlon/docs</strong> for
+details). Staying with the "two_cells" root, we can say
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/relax_1d -if two_cells -of two_cells_relaxed > relax_two_cells.txt</span>
+~/hanlon/test_1d> <span class="user">ls</span>
+relax_two_cells.txt  two_cells_relaxed.vtk  two_cells.vtk
+</pre>
+<p>
+Note that I <a href="http://en.wikipedia.org/wiki/Redirection_(computing)" target="_blank">redirected</a> 
+standard output to the log file "relax_two_cells.txt". This is convenient when dealing with larger jobs, which are 
+best executed in the background (and preferably with <a href="http://en.wikipedia.org/wiki/Nohup" target="_blank">nohup</a>, 
+so you don't inadvertently kill them by closing the console which you launched them from). 
+</p>
+<p>
+By now you get the drift (hint: the listing of program folders in the Setup section above is sorted by 
+order of execution). After relaxation comes optimization:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/optimize_1d ?</span>
+Unrecognized command line argument: ?
+
+Supported options [defaults in square brackets]:
+
+Filename for signal file:                -sf ["signal.txt"]
+Filename for initial data input:         -if ["relaxed"]
+Filename for minimized data output:      -of ["optimized"]
+
+Title of minimized data file:            -ot ["Optimized"]
+
+Max number of optimizer iterations:      -mi [1000]
+Step size:                               -ss [0.1]
+Absolute rho tolerance (local):          -at [0.001]
+Absolute rho gradient tolerance (local): -gt [1e-06]
+Relative rho tolerance (global):         -rr [0.0001]
+</pre>
+<p>
+Again, all we need to change is the filenames:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/optimize_1d -if two_cells_relaxed -of two_cells_optimized > optimize_two_cells.txt</span>
+~/hanlon/test_1d> <span class="user">ls</span>
+optimize_two_cells.txt  two_cells_optimized.vtk  two_cells.vtk
+relax_two_cells.txt     two_cells_relaxed.vtk
+</pre>
+<p>
+All VTK files created up to this point use polar coordinates for the scalar field components ($\theta_i$).
+Time evolution is computed using Cartesian field coordinates, so we need to change coordinates using p2c_1d
+first:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/p2c_1d ?</span>
+Unrecognized command line argument: ?
+
+Supported options [defaults in square brackets]:
+
+Input filename:  -if ["optimized"]
+Output filename: -of ["cartesian"]
+~/hanlon/test_1d> <span class="user">../bin/p2c_1d -if two_cells_optimized -of two_cells_cartesian</span>
+Reading input file "two_cells_optimized.vtk"
+Done loading.
+nSide: 1024
+Writing output file "two_cells_cartesian.vtk"
+</pre>
+<p>
+This is not done automatically by optimize_1d because you may occasionally want to skip optimization, or 
+relaxation, or both. In principle, nothing prevents you from feeding any of the VTK files created so far 
+to p2c_1d and then evolve its output.
+</p>
+<p>
+We are finally ready for the main course: time evolution. We can evolve the fields in Minkowski spacetime 
+(evolve_1d) or on the FRW metric (evolve_frw_1d). Let's take the easier route:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/evolve_1d ?</span>
+Unrecognized command line argument: ?
+
+Supported options [defaults in square brackets]:
+
+Filename for initial data input:        -if ["cartesian"]
+Filename for evolved data output:       -of ["evolved"]
+Title of evolved data file:             -ot ["Evolved"]
+
+Time step (lattice units):              -dt [0.0001]
+Lambda (potential constant):            -la [1000]
+Epsilon (negligible error):             -eo [1e-06]
+Max iterations in solver:               -mi [100]
+
+Max simulated time (lattice units):     -mt [-1]
+Max number of time steps:               -ms [-1]
+Save period (lattice units):            -sp [1]
+Report period (lattice units):          -rp [0]
+</pre>
+<p>
+As usual, we need to provide filenames, but for demonstration purposes it is also convenient to limit the 
+total simulated time (-mt) and to increase the report period (-rp). With the default values, the simulation 
+will run until you <a href="http://en.wikipedia.org/wiki/Kill_(command)" target="_blank">kill</a> it, and a 
+line will be written to standard output for each time step. With the following arguments, the fields will be 
+evolved for two lattice time units and progress will be reported at intervals of 0.1 lattice time units:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/evolve_1d -rp 0.1 -mt 2 -if two_cells_cartesian -of -of two_cells_evolved > evolve_two_cells.txt</span>
+~/hanlon/test_1d> 
+</pre>
+<p>
+Since we did not change the default -sp argument, field values are saved at intervals of one lattice time 
+unit. We end up with three new VTK files rather than two because lattice time after 20000 steps is rounded 
+to 1.9999999999998, so one more step is taken before the time limit imposed by -mt is reached, at which
+point the program saves the final simulation state:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">ls two_cells_evolved_*.vtk</span>
+two_cells_evolved_10000.vtk  two_cells_evolved_20000.vtk  two_cells_evolved_20001.vtk
+~/hanlon/test_1d> 
+</pre>
+<p>
+The filenames end with the number of the simulation step at which the files were created.
+</p>
+These files contain raw field values, which are not terribly enlightening on their own. To extract observables,
+we need to run analyze_1d:
+<pre class="console">
+~/hanlon/test_1d> <span class="user">../bin/analyze_1d ?</span>
+Unrecognized command line argument: ?
+
+Supported options [defaults in square brackets]:
+
+Input filename:                      -if ["raw"]
+Output directory:                    -od [""]
+
+Lambda (potential constant):         -la [1000]
+Analysis level [0..2]:               -al [0]
+</pre>
+<p>
+Unlike all HaNLON programs we have seen so far, analyze_1d creates a new directory (named after the input file 
+unless a different name is specified with -od) and creates multiple output files there: VTK files containing 
+observable values over the entire simulation space and text files with summaries. The number of files created 
+is larger for higher analysis levels (-al). Be forewarned that -al 2 can be extremely time-consuming.
+</p>
+<p>
+Typically, you will want to analyze all VTK files created by a simulation run. This is most easily done with a 
+shell loop:
+</p>
+<pre class="console">
+~/hanlon/test_1d> <span class="user">for f in two_cells_evolved_*.vtk; do ../bin/analyze_1d -if ${f%\.*} >> analyze_two_cells.txt; done</span>
+~/hanlon/test_1d> <span class="user">ls -d */</span>
+<strong>two_cells_evolved_10000/</strong>  <strong>two_cells_evolved_20000/</strong>  <strong>two_cells_evolved_20001/</strong>
+~/hanlon/test_1d> <span class="user">ls evolved_10000</span>
+averages.txt  divE.vtk  m_mid.vtk    p_theta.vtk  rho_E.vtk       rho.vtk
+A.vtk         E.vtk     p_B.vtk      p.vtk        rho_lambda.vtk  theta.vtk
+B.vtk         m_hi.vtk  p_E.vtk      q.vtk        rho_mixed.vtk   w.vtk
+divEMq.vtk    m_lo.vtk  p_mixed.vtk  rho_B.vtk    rho_theta.vtk
+</pre>
+<p>
+Note that besides observables proper, we also get a file (theta.vtk) with $\vec \theta$ components, 
+which (by virtue of being only three) are much easier to visualize than the four Cartesian $\phi_i$.
+</p>
+<p>
+The files can now be visualized and processed further using standard tools like 
+<a href="http://www.paraview.org/" target="_blank">ParaView</a>,
+<a href="https://wci.llnl.gov/codes/visit/" target="_blank">VisIt</a>, 
+<a href="http://www.r-project.org/" target="_blank">R</a> and 
+<a href="http://www.scipy.org/" target="_blank">SciPy</a>.
+</p>
