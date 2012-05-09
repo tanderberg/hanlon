@@ -904,7 +904,7 @@ void TRunLattice::init_a(double h0, double o_sim, double o_d, double o_v, double
    rho_d = rho * o_d; rho_d_0 = rho_d;
    rho_v = rho * o_v;
     
-   // Rescale A and pA so rho optimization remains valid after spatial scaling
+   // Rescale A and pph so rho optimization remains valid after spatial scaling
     
 #ifdef _OPENMP
 #pragma omp parallel

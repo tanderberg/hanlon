@@ -1,25 +1,33 @@
 cd seed
+chmod u+x mk
 echo "Building seed"
-mk
+./mk
 cd ../relax
+chmod u+x mk
 echo "Building relax"
-mk
+./mk
 cd ../optimize
+chmod u+x mk
 echo "Building optimize"
-mk
+./mk
 cd ../p2c
+chmod u+x mk
 echo "Building p2c"
-mk
+./mk
 cd ../evolve
+chmod u+x mk
 echo "Building evolve"
-mk
+./mk
 cd ../evolve_frw
+chmod u+x mk
 echo "Building evolve_frw"
-mk
+./mk
 cd ../analyze
+chmod u+x mk
 echo "Building analyze"
-mk
+./mk
 cd ../analyze_frw
+chmod u+x mk
 echo "Building analyze_frw"
-mk
+./mk
 cd ..
