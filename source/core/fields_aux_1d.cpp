@@ -147,12 +147,12 @@ void TAux::compute_hG_core(double th_1, double th_2, double th_3,
 
    if (thR2 < SMALL_THETA_SQUARED) // O(th_i^3) series expansion
    {
-      h_00 = 1-(2*th_1*th_2*th_3 + 4*th2R2 + th3R2)/12;
-      h_01 = (4*th_1*th_2 + th_3*(th2R2 - th1R2))/12;
-      h_02 = -(2*th_1*th_3 + th_2*(3*thTR2 + th3R2 - 12))/24;
-      h_11 = 1-(-2*th_1*th_2*th_3 + 4*th1R2 + th3R2)/12;
-      h_12 = (-2*th_2*th_3 + th_1*(3*thTR2 + th3R2 - 12))/24;
-      h_22 = thTR2/4;
+      h_00 = gR2 * (1-(2*th_1*th_2*th_3 + 4*th2R2 + th3R2)/12);
+      h_01 = gR2 * ((4*th_1*th_2 + th_3*(th2R2 - th1R2))/12);
+      h_02 = gR2 * (-(2*th_1*th_3 + th_2*(3*thTR2 + th3R2 - 12))/24);
+      h_11 = gR2 * (1-(-2*th_1*th_2*th_3 + 4*th1R2 + th3R2)/12);
+      h_12 = gR2 * ((-2*th_2*th_3 + th_1*(3*thTR2 + th3R2 - 12))/24);
+      h_22 = gR2 * (thTR2/4);
 
       G_00 = 1.0/4.0 - (th_2*th_2 + th_3*th_3)/48.0;
       G_01 = th_2*th_1/48.0;
