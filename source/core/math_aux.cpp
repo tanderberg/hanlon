@@ -62,12 +62,8 @@ double spline(double x, double width)
 
 double wrap(double angle)
 {
-   if (fabs(angle) > TWO*PI)
-   {
-      double intpart;
-
-      return(TWO*PI * (TWO * modf((angle/(FOUR*PI) + HALF), &intpart) - ONE));
-   }
+   while (angle > TWO*PI) angle -= FOUR*PI;
+   while (angle < -TWO*PI) angle += FOUR*PI;
 
    return(angle);   
 }
