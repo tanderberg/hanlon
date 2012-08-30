@@ -343,35 +343,19 @@ even scaling down domain size by a factor 1000 makes no detectable difference (a
 dynamics remain unchanged under such rescaling).
 </p>
 <p>
-This means that photon deflection is negligible. Not so photon decay, however. This is the distribution of
-residual luminosities between each cell in the lattice and its 26 nearest neighbors,
+This means that photon deflection is negligible. Using the 
+<a href="papers/worlds.pdf" target="_blank">exponential decay formula</a> with 1 $eV$ photons and 0.1 eV 
+neutrinos, there is also essentially no luminosity loss: out of $64^3 = 262144$ average nearest-neighbor 
+residual luminosities, only a handful fall below 1 by even one part in a million:
 </p>
 <figure>
   <div class="crop">
-  <img src="images/eft-domains-frw/distribution_luminosity_1190000.png" class="center rfig">
-  <figcaption>Nearest neighbor residual luminosity distribution at end of simulation.</figcaption>
+  <img src="images/eft-domains-frw/exp_luminosity_1190000.png" class="center rfig">
   </div>
+  <figcaption>Average nearest-neighbor residual luminosities (exponential decay formula).</figcaption>
 </figure>
 <p>
-and this is what you get if you shoot a million straight rays of length 31.5 in random directions from 
-$x = y = z = 31.5$ (all in lattice units) and update their residual luminosity as they cross into new cells:
-</p>
-<figure>
-  <div class="crop">
-  <img src="images/eft-domains-frw/distribution_ray_luminosity_1190000.png" class="center rfig">
-  <figcaption>Residual luminosity distribution on (or from) sphere with radius 31.5 (lattice units).</figcaption>
-  </div>
-</figure>
-<figure>
-  <div class="croppy">
-  <img src="images/eft-domains-frw/raw_random_mollweide.png" class="center pyfig">
-  <figcaption>Residual luminosity on (or from) sphere with radius 31.5 (lattice units), 
-              <a href="http://en.wikipedia.org/wiki/Mollweide_projection" target="_blank">Mollweide projection</a>.</figcaption>
-  </div>
-</figure>
-<p>
-The corresponding physical distance is roughly $1.7 \cdot 10^9$ light years, which is certainly cosmological, 
-but keep in mind that this simulation uses initial conditions which are questionable at best (domains start 
-out 1000 times larger than we have a right to expect) and ends at only one third of the current age of the 
-universe.
+Strictly speaking, the exponential decay formula underestimates the luminosity loss (it only considers the 
+effective photon mass due to the gradient along the ray) but it should be fine as an order of magnitude 
+estimate.
 </p>
