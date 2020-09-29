@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2012, Tommy Anderberg.
+<a href="index.html">HaNLON Documentation</a> Copyright &copy; 2007-2020, Tommy Anderberg.
 <h1>Runthrough</h1>
 <p>
 <h3><a href="http://en.wiktionary.org/wiki/TLDR" target="_blank">tl;dr</a></h3>
@@ -255,7 +255,7 @@ shell loop:
 ~/hanlon/test_1d> <span class="user">for f in two_cells_evolved_*.vtk; do ../bin/analyze_1d -if ${f%\.*} >> analyze_two_cells.txt; done</span>
 ~/hanlon/test_1d> <span class="user">ls -d */</span>
 <strong>two_cells_evolved_10000/</strong>  <strong>two_cells_evolved_20000/</strong>  <strong>two_cells_evolved_20001/</strong>
-~/hanlon/test_1d> <span class="user">ls evolved_10000</span>
+~/hanlon/test_1d> <span class="user">ls two_cells_evolved_10000</span>
 averages.txt  divE.vtk  m_mid.vtk    p_theta.vtk  rho_E.vtk       rho.vtk
 A.vtk         E.vtk     p_B.vtk      p.vtk        rho_lambda.vtk  theta.vtk
 B.vtk         m_hi.vtk  p_E.vtk      q.vtk        rho_mixed.vtk   w.vtk
@@ -268,10 +268,10 @@ components.
 </p>
 <p>
 The files can now be visualized and processed further using standard tools like 
-<a href="http://www.paraview.org/" target="_blank">ParaView</a>,
-<a href="https://wci.llnl.gov/codes/visit/" target="_blank">VisIt</a>, 
-<a href="http://www.r-project.org/" target="_blank">R</a> and 
-<a href="http://www.scipy.org/" target="_blank">SciPy</a>.
+<a href="https://www.paraview.org/" target="_blank">ParaView</a>,
+<a href="https://wci.llnl.gov/simulation/computer-codes/visit/" target="_blank">VisIt</a>, 
+<a href="https://www.r-project.org/" target="_blank">R</a> and 
+<a href="https://www.scipy.org/" target="_blank">SciPy</a>.
 </p>
 </p>
 </body>
